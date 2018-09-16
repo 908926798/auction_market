@@ -5,7 +5,7 @@ from django.core.cache import cache
 # Create your views here.
 
 #cache time = 15min
-@cache_page(60*15)
+@cache_page(60*15) #为一个方法（页面）
 def test(request):
     key = '我是缓存值'
     time=60

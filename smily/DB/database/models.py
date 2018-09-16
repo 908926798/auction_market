@@ -6,6 +6,7 @@ class goods(models.Model):
     seller_name = models.ForeignKey("user",on_delete=models.CASCADE)
     minimum_price = models.PositiveIntegerField
     status = (
+        ('review','WaitingforReview'),
         ('pre','preparing'),
         ('in','inAuction'),
         ('end','endAuction')
@@ -36,3 +37,7 @@ class auction(models.Model):
     lastbid_time = models.DateTimeField(null=True)
     lastprice = models.IntegerField
 
+class PrivateChat(models.Model):
+    sourceName = models.CharField(max_length=20,primary_key=True)
+    sourceIP = models.URLField
+    targetName = models.ForeignKey("user",on_delete=models.CASCADE)
