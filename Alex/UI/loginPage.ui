@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Login</class>
+ <widget class="QWidget" name="Login">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Login</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -32,7 +32,7 @@
     <string>账号名：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="edt_username">
+  <widget class="QLineEdit" name="lie_username">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -91,7 +91,7 @@
     <string>密码：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="edt_password">
+  <widget class="QLineEdit" name="lie_password">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -122,6 +122,9 @@
      <height>32</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>注册账号</string>
    </property>
@@ -134,6 +137,9 @@
      <width>113</width>
      <height>32</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::TabFocus</enum>
    </property>
    <property name="text">
     <string>登录</string>

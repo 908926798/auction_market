@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
+import json
+import requests
 import sys
 
 class LoginPage(QDialog):
@@ -12,27 +14,38 @@ class LoginPage(QDialog):
         loadUi('UI/loginPage.ui',self)
         self.btn_login.clicked.connect(self.login)
         self.btn_toRegister.clicked.connect(self.toRegister)
-        self.mainController = mc
-        self.opened = False
+        self.mc = mc
 
     def login(self):
-        ok = True
         ##########################
-        #调用数据库
+        #访问主服务器
         ##########################
-        if ok:
-            self.mainController.username = 'cxl'
-            self.mainController.nextPage = 'mainPage'
-            self.close()
+        url = self.mc.url + '/login?'
+        url += 'login_name_email=' + self.lie_username.text()
+        url += '&login_password=' + self.lie_password.text()
+        res = requests.get(url)
+        print(res.text)
+        if res.text:
+            result = json.loads(res.text)
+            if result['status']:
+                self.mc.username = self.lie_username.text()
+                self.mc.nextPage = 'mainPage'
+                self.close()
+            else:
+                QMessageBox.information(self, "错误", "用户名或密码错误!", QMessageBox.Yes)
+        else:
+            QMessageBox.information(self, "错误", "用户名或密码错误!",QMessageBox.Yes)
+        self.lie_username.setText('')
+        self.lie_password.setText('')
 
     def toRegister(self):
-        self.mainController.nextPage = 'registerPage'
+        self.mc.nextPage = 'registerPage'
         self.close()
 
     def closeEvent(self, event):
-        if not self.mainController.nextPage:
+        if not self.mc.nextPage:
             sys.exit()
 
     def run(self):
-        self.mainController.nextPage = None
+        self.mc.nextPage = None
         self.exec_()
