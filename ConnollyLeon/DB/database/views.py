@@ -56,3 +56,35 @@ def login(request):
         result['status'] = 0
         result = json.dumps(result)
         return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+
+def register(request):
+    if request.method == 'GET':
+        print('hellohello')
+        result = {}
+        username = request.GET.get('username')
+        password = request.GET.get('password')
+
+        print(username)
+        print(password)
+        try:
+            print('trying to get objects')
+            User.objects.get(username=username)
+            print('obeject got')
+            result['status'] = 0
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+        except ObjectDoesNotExist as e:
+            m2 = md5()
+            m2.update(password.encode('utf8'))
+            password = m2.hexdigest()
+            registAdd = User.objects.create(username=username, password=password)
+            #registAdd.save()
+            result['status'] = 1
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+    else:
+        result = {}
+        result['status'] = 0
+        result = json.dumps(result)
+        return HttpResponse(result, content_type='application/json;charset=utf-8')

@@ -8,7 +8,6 @@ from database.models import *
 admin.site.register(Goods)
 admin.site.register(Auction)
 admin.site.register(User)
-admin.site.register(RoleofUser)
 admin.site.register(PrivateChat)
 
 admin.site.name = '后台管理'

@@ -23,25 +23,18 @@ class Goods(models.Model):
 class User(models.Model):
     username = models.CharField(max_length=20, primary_key=True)
     password = models.CharField(max_length=15)
-    nickname = models.CharField(max_length=20, default=username)
+    nickname = models.CharField(max_length=20, default='none')
     assets = models.PositiveIntegerField(default=0)
     choice = (
         ('0', 'normal'),
         ('1', 'banned')
     )
-    status = models.CharField(max_length=6,choices=choice)
-
-    def __str__(self):
-        return self.username
-
-
-class RoleofUser(models.Model):
-    username = models.CharField(max_length=20, primary_key=True)
-    choice = (
+    choice1 = (
         ('GU', 'general_user'),
         ('GA', 'goods_administrator')
     )
-    role = models.CharField(max_length=20,choices=choice)
+    role = models.CharField(max_length=20,choices=choice1)
+    status = models.CharField(max_length=6,choices=choice)
 
     def __str__(self):
         return self.username
@@ -60,7 +53,7 @@ class Auction(models.Model):
 class PrivateChat(models.Model):
     sourceName = models.CharField(max_length=20, primary_key=True)
     sourceIP = models.URLField
-    targetName = models.ForeignKey("user", on_delete=models.CASCADE)
+    targetName = models.ForeignKey("User", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.sourceIP
