@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7da22726-83ad-4850-8f8f-9c5e7c775f61" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../useofmemcache.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../~$work3.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/DB/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/DB/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0002_privatechat.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0003_auto_20180917_0153.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0004_auto_20180917_1105.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0005_auto_20180917_1958.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DB.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DB.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

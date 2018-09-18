@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Goods(models.Model):
-    G_number = models.IntegerField(primary_key=True)
+    G_number = models.AutoField(primary_key=True)
     goods_name = models.CharField(max_length=30)
     seller_name = models.ForeignKey("user", on_delete=models.CASCADE)
     minimum_price = models.PositiveIntegerField()
@@ -51,7 +51,7 @@ class User(models.Model):
 
 class PrivateChat(models.Model):
     sourceName = models.CharField(max_length=20, primary_key=True)
-    sourceIP = models.URLField
+    sourceIP = models.CharField(max_length=20)
     targetName = models.ForeignKey("User", on_delete=models.CASCADE)
 
     def __str__(self):
