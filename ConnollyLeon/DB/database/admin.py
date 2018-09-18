@@ -6,7 +6,6 @@ from django.contrib import admin
 from database.models import *
 
 admin.site.register(Goods)
-admin.site.register(Auction)
 admin.site.register(User)
 admin.site.register(PrivateChat)
 

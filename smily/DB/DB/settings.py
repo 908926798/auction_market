@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'auc',
         'USER': 'root',
         'PASSWORD': 'yueyue',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.1',
         'PORT': '3306',
         'CHARSET': 'utf8',
     }

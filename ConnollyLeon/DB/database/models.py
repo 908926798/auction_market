@@ -3,18 +3,20 @@ from django.db import models
 
 # Create your models here.
 class Goods(models.Model):
-    goods_name = models.CharField(max_length=30, primary_key=True)
+    G_number = models.IntegerField(primary_key=True)
+    goods_name = models.CharField(max_length=30)
     seller_name = models.ForeignKey("user", on_delete=models.CASCADE)
-    minimum_price = models.PositiveIntegerField
+    minimum_price = models.PositiveIntegerField()
+    detail = models.TextField()
     choice = (
         ('review', 'WaitingforReview'),
-        ('pre', 'preparing'),
         ('in', 'inAuction'),
         ('end', 'endAuction')
     )
-    status = models.CharField(max_length=18,choices=choice)
-    start_time = models.DateTimeField
-    highest_price = models.PositiveIntegerField(default=minimum_price)
+    status = models.CharField(max_length=6, choices=choice, default='review')
+    lastbid_username = models.CharField(max_length=20, null=True)
+    lastbid_time = models.DateTimeField(null=True)
+    lastprice = models.IntegerField(null=True)
 
     def __str__(self):
         return self.goods_name
@@ -22,7 +24,7 @@ class Goods(models.Model):
 
 class User(models.Model):
     username = models.CharField(max_length=20, primary_key=True)
-    password = models.CharField(max_length=15)
+    password = models.CharField(max_length=256)
     nickname = models.CharField(max_length=20, default='none')
     assets = models.PositiveIntegerField(default=0)
     choice = (
@@ -30,24 +32,21 @@ class User(models.Model):
         ('1', 'banned')
     )
     choice1 = (
-        ('GU', 'general_user'),
-        ('GA', 'goods_administrator')
+        ('0', 'not_administrator'),
+        ('1', 'goods_administrator')
     )
-    role = models.CharField(max_length=20,choices=choice1)
-    status = models.CharField(max_length=6,choices=choice)
+
+    choice2 = (
+        ('0', 'not_general_user'),
+        ('1', 'general_user')
+    )
+
+    isAdministrator = models.CharField(max_length=20, choices=choice1, default='0')
+    isGeneralUser = models.CharField(max_length=20, choices=choice2, default='1')
+    status = models.CharField(max_length=6, choices=choice, default='0')
 
     def __str__(self):
         return self.username
-
-
-class Auction(models.Model):
-    goods_name = models.CharField(max_length=30, primary_key=True)
-    lastbid_username = models.CharField(max_length=20, null=True)
-    lastbid_time = models.DateTimeField(null=True)
-    lastprice = models.IntegerField
-
-    def __str__(self):
-        return self.goods_name
 
 
 class PrivateChat(models.Model):
