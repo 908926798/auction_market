@@ -7,6 +7,7 @@ from .models import *
 from hashlib import md5
 from django.core.exceptions import *
 from django.http import *
+from .Serializer import *
 import json
 
 
@@ -122,7 +123,14 @@ def goods(request):
         #    return HttpResponse(result, content_type='application/json;charset=utf-8')
 
     elif request.method == 'GET':
+        status = request.GET.get('status')
+        if (status == '1'):
+            goods = Goods.objects.filter(status='review')
+            serializer = GoodsReviewSerializer(goods, many=True)
+            return JsonResponse(serializer.data, safe=False)
+
         result = {}
         result['status'] = 0
         result = json.dumps(result)
+
         return HttpResponse(result, content_type='application/json;charset=utf-8')
