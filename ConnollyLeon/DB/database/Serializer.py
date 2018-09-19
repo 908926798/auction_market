@@ -16,7 +16,7 @@ class GoodsInSerializer(serializers.Serializer):
 class GoodsEndSerializer(serializers.Serializer):
     goods_name = serializers.CharField(max_length=30)
     lastbid_username = serializers.CharField(max_length=20)
-    lastbid_time = serializers.DateTimeField()
+    lastbid_time = serializers.TimeField()
     lastprice = serializers.IntegerField()
 
 class PrivateChatSerializer(serializers.Serializer):
