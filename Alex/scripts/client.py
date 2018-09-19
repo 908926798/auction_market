@@ -4,15 +4,14 @@ from PyQt5.QtCore import *
 import LoginPage
 import RegisterPage
 import MainPage
-import ChatPage
 import AuctionPage
 
 class MainController():
     def __init__(self):
-        self.url = 'http://192.168.43.17:8000'
-        self.username = '1'
-        self.roles = ['商品管理员','普通用户']
-        self.money = 40
+        self.url = 'http://192.168.1.4:8000'
+        self.username = None
+        self.roles = []
+        self.money = None
         self.mainServerIP = None
         self.pages = {}
         self.nextPage = None
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     mc.pages['mainPage'] = MainPage.MainPage(mc)
     mc.pages['auctionPage'] = AuctionPage.AuctionPage(mc)
 
-    mc.nextPage = 'mainPage'
+    mc.nextPage = 'loginPage'
 
     while(mc.nextPage):
         mc.pages[mc.nextPage].run()

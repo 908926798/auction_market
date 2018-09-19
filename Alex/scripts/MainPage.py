@@ -48,12 +48,13 @@ class MainPage(QDialog):
         ##########################
         url = self.mc.url + '/goods?'
         url += 'status=' + str(self.mc.searchState)
-
         try:
             res = requests.get(url)
             result = json.loads(res.text)
+
             for x in result:
                 self.mc.items.append(x)
+            print(self.mc.items)
         except:
             pass
 
@@ -68,7 +69,12 @@ class MainPage(QDialog):
         self.vLayout.setSpacing(0)
         ##########################
         for i in range(len(self.mc.items)):
-            item = Item.Item1(self.mc,self.mc.items[i])
+            if self.mc.searchState == 1:
+                item = Item.Item1(self.mc,self.mc.items[i])
+            if self.mc.searchState == 2:
+                item = Item.Item2(self.mc,self.mc.items[i])
+            if self.mc.searchState == 3:
+                item = Item.Item3(self.mc,self.mc.items[i])
             # item.setStyleSheet("background-color:rgb(230,255,255)")
             item.setMinimumSize(521, 100)
             self.vLayout.addWidget(item, alignment=Qt.AlignTop)
@@ -87,8 +93,23 @@ class MainPage(QDialog):
             self.mc.money += int(self.lie_addMoney.text())
         else:
             QMessageBox.information(self, "错误", "请输入正确金额！\n（目前只支持整数金额）",QMessageBox.Yes)
-        self.lie_addMoney.setText('')
-        self.lbl_money.setText(str(self.mc.money) + ' 元')
+
+        url = self.mc.url + '/money/'
+        info = {'username':self.mc.username,
+                'money': int(self.lie_addMoney.text())}
+        try:
+            res = requests.post(url,data=info)
+            # print(res.text)
+            result = json.loads(res.text)
+            if result['status']:
+                QMessageBox.information(self, "成功", "充值成功!", QMessageBox.Yes)
+
+                self.mc.money = result['money']
+                self.lie_addMoney.setText('')
+                self.lbl_money.setText(str(self.mc.money) + ' 元')
+        except:
+            self.lie_addMoney.setText('')
+            QMessageBox.information(self, "错误", "冲的钱太多啦!", QMessageBox.Yes)
 
     def startChat(self):
         if not self.lwg_other.selectedItems():
