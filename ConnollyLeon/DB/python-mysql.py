@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
-
 import mysql.connector
-# 打开数据库连接（请根据自己的用户名、密码及数据库名称进行修改）
+
 config = {
     'host': '192.168.43.23',
     'user': 'root',
@@ -11,33 +10,37 @@ config = {
     'charset': 'utf8'
 }
 cnn = mysql.connector.connect(**config)
-# 使用cursor()方法获取操作游标
+
 cursor = cnn.cursor()
 
-# 使用execute方法执行SQL语句
+
 cursor.execute("SELECT VERSION()")
 
-# 使用 fetchone() 方法获取一条数据
+
 data = cursor.fetchone()
 print("Database version : %s " % data)
-#values = cursor.fetchall()
-# 执行sql语句
 
-#显示的结果应该如下：
+
+
+
 #Database version : 8.0.12
 
-#查找数据
+
 cursor.close()
 cursor = cnn.cursor(buffered=True)
-cursor.execute('select * from database_user')
+cursor.execute('select goods_name from database_goods WHERE status="in"')
 values = cursor.fetchall()
+
 print(values)
 
-#更改数据
+
 cursor.close()
 cursor = cnn.cursor(buffered=True)
-cursor.execute('update * from database_user')
-values = cursor.fetchall()
-print(values)
+cursor.execute('UPDATE database_goods SET lastbid_username = "Alex" WHERE goods_name = "huluwa"')
+cursor.execute('UPDATE database_goods SET lastprice = "5" WHERE goods_name = "huluwa"')
+cursor.execute('update database_goods set lastbid_time = now() where goods_name = "huluwa"')
+#values = cursor.fetchall()
+cnn.commit()
+#print(values)
 
 cnn.close()
