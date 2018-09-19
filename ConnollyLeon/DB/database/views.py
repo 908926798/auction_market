@@ -135,28 +135,39 @@ def goods(request):
 
         return HttpResponse(result, content_type='application/json;charset=utf-8')
 
+
+@csrf_exempt
 def chat(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         fromname = request.POST.get("fromname")
         toname = request.POST.get("toname")
         fromip = request.POST.get("fromip")
         print(fromname)
         print(toname)
         print(fromip)
-        result={}
+        result = {}
         try:
             fromuser = User.objects.get(username=fromname)
             touser = User.objects.get(username=toname)
-            chat = PrivateChat.object.create(sourceName=fromuser,targetName=touser, sourceIP=fromip)
-            result['status']=1
-            result=json.dumps(result)
+            try:
+                chat = PrivateChat.objects.get(sourceName=fromuser, targetName=touser)
+                chat.sourceIP=fromip
+                chat.save()
+            except ObjectDoesNotExist as e:
+                chat = PrivateChat.objects.create(sourceName=fromuser, targetName=touser, sourceIP=fromip)
+            result['status'] = 1
+            result = json.dumps(result)
+            print(result)
             return HttpResponse(result, content_type='application/json;charset=utf-8')
 
         except ObjectDoesNotExist as e:
-            result['status']=0
-            result=json.dumps(result)
-
-            return HttpResponse(result,content_type='application/json;charset=utf-8')
-
-
-
+            result['status'] = 0
+            result = json.dumps(result)
+            print(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+    elif request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.get(username=username)
+        chats = PrivateChat.objects.filter(targetName=user)
+        serializer = PrivateChatSerializer(chats, many=True)
+        return JsonResponse(serializer.data, safe=False)

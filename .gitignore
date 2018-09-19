@@ -11,3 +11,7 @@ smily/~$work3.docx
 *.xml
 *.docx
 ConnollyLeon/.idea/ConnollyLeon.iml
+ConnollyLeon/DB/.idea/misc.xml
+*.iml
+*.xml
+*.pyc

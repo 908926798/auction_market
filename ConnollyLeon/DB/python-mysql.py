@@ -1,8 +1,12 @@
 # -*- coding:utf-8 -*-
 import mysql.connector
+<<<<<<< HEAD
 import sys
 reload(sys)
 #sys.setdefaultencoding('utf-8')
+=======
+
+>>>>>>> 4a4145817cfdf77ea05b8dc00de567e738fe13ee
 config = {
     'host': '192.168.43.23',
     'user': 'root',
@@ -40,6 +44,10 @@ cursor.close()
 cursor = cnn.cursor(buffered=True)
 cursor.execute('UPDATE database_goods SET lastbid_username = "Alex" WHERE goods_name = "huluwa"')
 cursor.execute('UPDATE database_goods SET lastprice = "5" WHERE goods_name = "huluwa"')
+<<<<<<< HEAD
+=======
+cursor.execute('update database_goods set lastbid_time = now() where goods_name = "huluwa"')
+>>>>>>> 4a4145817cfdf77ea05b8dc00de567e738fe13ee
 #values = cursor.fetchall()
 cnn.commit()
 #print(values)
