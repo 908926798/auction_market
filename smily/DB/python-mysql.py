@@ -20,9 +20,24 @@ cursor.execute("SELECT VERSION()")
 # 使用 fetchone() 方法获取一条数据
 data = cursor.fetchone()
 print("Database version : %s " % data)
-
+#values = cursor.fetchall()
 # 执行sql语句
-cnn.close()
-#显示的结果应该如下：
 
+#显示的结果应该如下：
 #Database version : 8.0.12
+
+#查找数据
+cursor.close()
+cursor = cnn.cursor(buffered=True)
+cursor.execute('select * from database_user')
+values = cursor.fetchall()
+print(values)
+
+#更改数据
+cursor.close()
+cursor = cnn.cursor(buffered=True)
+cursor.execute('update * from database_user')
+values = cursor.fetchall()
+print(values)
+
+cnn.close()
