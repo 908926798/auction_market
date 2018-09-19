@@ -16,7 +16,8 @@ class Goods(models.Model):
     choice = (
         ('review', 'WaitingforReview'),
         ('in', 'inAuction'),
-        ('end', 'endAuction')
+        ('end', 'endAuction'),
+        ('ready','ReadyforAuction')
     )
     status = models.CharField(max_length=6, choices=choice, default='review')
     lastbid_username = models.CharField(max_length=20, null=True)

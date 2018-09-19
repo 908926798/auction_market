@@ -24,7 +24,7 @@ class Item1(QWidget):
         self.btn_disagree.clicked.connect(self.disagree)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
+        ItemDetail(self.mc,self.itemInfo).run()
 
     def chatSeller(self):
         url = self.mc.url + '/chat/'
@@ -42,40 +42,59 @@ class Item1(QWidget):
         # print(res.text)
         result = json.loads(res.text)
         if result['status']:
-            print(1)
+
             self.mc.chatOther = self.itemInfo['seller_name']
             self.mc.chatState = 'r'
             self.mc.otherIP = ip
-            ChatPage.ChatPage(self.mc).run()
+            try:
+                ChatPage.ChatPage(self.mc).run()
+                QMessageBox.information(self, "结束", "聊天已结束!", QMessageBox.Yes)
+            except:
+                return
+
         else:
             QMessageBox.information(self, "错误", "无法与该卖家通信!", QMessageBox.Yes)
         # except:
         #     QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
 
     def agree(self):
-        pass
+        self.judgeItem(1)
 
     def disagree(self):
-        pass
+        self.judgeItem(0)
+
+    def judgeItem(self,r):
+        url = self.mc.url + '/judgement/'
+        info = {'G_number': self.itemInfo['G_number'],
+                'result': r}
+        try:
+            res = requests.post(url, data=info)
+            # print(res.text)
+            result = json.loads(res.text)
+            if result['status']:
+                print(2222)
+                self.mc.mainPage.getState()
+        except:
+            QMessageBox.information(self, "错误", "通讯失败!", QMessageBox.Yes)
+
 
 class Item2(QWidget):
-    def __init__(self, mc,i,parent=None):
+    def __init__(self, mc,item,parent=None):
         # super这个用法是调用父类的构造函数
         # parent=None表示默认没有父Widget，如果指定父亲Widget，则调用之
         super(Item2, self).__init__(parent)
         loadUi('UI/item2.ui',self)
         self.mc = mc
-        self.itemInfo = mc.items[i]
-        self.lbl_itemName.setText(self.itemInfo['itemName'])
-        self.lbl_lastBidder.setText(self.itemInfo['lastBidder'])
-        self.lbl_startTime.setText(self.itemInfo['startTime'])
-        self.lbl_curPrice.setText(self.itemInfo['curPrice'])
-        self.btn_joinAuction.clicked.connect(self.joinAuction)
+        self.itemInfo = item
+        self.lbl_itemName.setText(self.itemInfo['goods_name'])
+        self.lbl_lastBidder.setText(self.itemInfo['lastbid_username'])
+        self.lbl_seller.setText(self.itemInfo['seller_name'])
+        self.lbl_curPrice.setText(str(self.itemInfo['lastprice']))
+        self.btn_joinAction.clicked.connect(self.joinAuction)
         self.btn_itemDetail.clicked.connect(self.itemDetail)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
-
+        ItemDetail(self.mc,self.itemInfo).run()
 
     def joinAuction(self):
         self.mc.acutionItem = self.itemInfo['itemName']
@@ -83,21 +102,25 @@ class Item2(QWidget):
         self.mc.mainPage.close()
 
 class Item3(QWidget):
-    def __init__(self, mc,i,parent=None):
+    def __init__(self, mc,item,parent=None):
         # super这个用法是调用父类的构造函数
         # parent=None表示默认没有父Widget，如果指定父亲Widget，则调用之
         super(Item3, self).__init__(parent)
         loadUi('UI/item3.ui',self)
         self.mc = mc
-        self.itemInfo = mc.items[i]
-        self.lbl_itemName.setText(self.itemInfo['itemName'])
-        self.lbl_lastBidder.setText(self.itemInfo['lastBidder'])
-        self.lbl_startTime.setText(self.itemInfo['endTime'])
-        self.lbl_curPrice.setText(self.itemInfo['curPrice'])
+        self.itemInfo = item
+        self.lbl_itemName.setText(self.itemInfo['goods_name'])
+        self.lbl_lastBidder.setText(self.itemInfo['lastbid_username'])
+        t = self.itemInfo['lastbid_time']
+        if t:
+            self.lbl_endTime.setText(t[0:10] + ' '+ t[11:19])
+        else:
+            self.lbl_endTime.setText('无')
+        self.lbl_curPrice.setText(str(self.itemInfo['lastprice']))
         self.btn_itemDetail.clicked.connect(self.itemDetail)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
+        ItemDetail(self.mc,self.itemInfo).run()
 
 class ItemDetail(QDialog):
     close_signal = pyqtSignal()
@@ -108,10 +131,22 @@ class ItemDetail(QDialog):
         loadUi('UI/itemDetail.ui',self)
         # self.btn_toRegister.clicked.connect(self.toRegister)
         self.mc = mc
+        self.itemInfo = itemInfo
         self.btn_ok.clicked.connect(self.ok)
 
     def ok(self):
         self.close()
 
     def run(self):
+
+        url = self.mc.url + '/detail?'
+        url += 'G_number=' + str(self.itemInfo['G_number'])
+        try:
+            res = requests.get(url)
+            result = json.loads(res.text)
+            print(result)
+        except:
+            pass
+
+
         self.exec_()

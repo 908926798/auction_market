@@ -15,3 +15,17 @@ ConnollyLeon/DB/.idea/misc.xml
 *.iml
 *.xml
 *.pyc
+*.pyc
+<<<<<<< HEAD
+*.xml
+*.iml
+*.ui
+*.ui
+=======
+*.pyc
+>>>>>>> cb046262b0d89d16717ac7d65e337d238d6c0f4b
+*.pyc
+*.pyc
+*.iml
+*.xml
+.idea/workspace.xml
