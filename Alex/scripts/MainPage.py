@@ -124,6 +124,8 @@ class MainPage(QDialog):
 
         self.mc.otherIP = self.mc.chats[self.lwg_other.selectedItems()[0].text()]
         ChatPage.ChatPage(self.mc).run()
+        QMessageBox.information(self, "结束", "聊天已结束!", QMessageBox.Yes)
+
         # self.mc.nextPage = 'chatPage'
         # self.close()
 

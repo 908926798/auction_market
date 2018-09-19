@@ -24,24 +24,25 @@ class ChatPage(QDialog):
         self.connection = None
         self.socket = None
         self.state = 0
-
+        self.port = 5550
 
     def listen(self):
-        self.bwThread = ListenThread(self.mc,self)
-        self.bwThread.start()
+        try:
+            self.bwThread = ListenThread(self.mc,self)
+            self.bwThread.start()
+        except:
+            pass
 
     def require(self):
         self.bwThread = RequireThread(self.mc, self)
         self.bwThread.start()
 
     def endChat(self):
-        if self.state == 0:
-            self.lbl_other.setText('等待 ' + self.mc.chatOther + " 响应聊天请求")
-            self.btn_endChat.setText('结束聊天')
-            self.listen()
-            self.state = 1
-        else:
-            self.close()
+        try:
+            self.bwThread.send('TypeError: information')
+        except:
+            pass
+        self.close()
 
     def send(self):
         msg = self.mc.username + ' :\n' + self.lie.text() + '\n'
@@ -53,12 +54,27 @@ class ChatPage(QDialog):
     def run(self):
         # self.lbl_other.setText(self.mc.chatOther)
         self.lbl_other.setText('未连接')
+        if self.mc.chatState == 'r':
+            self.lbl_other.setText('等待   ' + self.mc.chatOther + " 同意聊天请求")
+            self.listen()
 
         if self.mc.chatState == 's':
             self.lbl_other.setText('正在与   ' + self.mc.chatOther + "   聊天")
             self.require()
 
         self.exec_()
+
+    def end(self):
+        print('end')
+        #QMessageBox.information(self, "错误", "连接已断开!", QMessageBox.Yes)
+        self.close()
+
+    def closeEvent(self, event):
+        try:
+            self.bwThread.send('TypeError: information')
+        except:
+            pass
+
 
 #继承 QThread 类
 class ListenThread(QThread):
@@ -71,7 +87,10 @@ class ListenThread(QThread):
     #重写 run() 函数，在里面干大事。
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind((self.mc.otherIP, 5550))
+        self.socket = sock
+        sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+        sock.bind((self.mc.otherIP, self.mc.port))
+        self.mc.port += 1
         sock.listen(5)
 
         # shou
@@ -96,17 +115,28 @@ class ListenThread(QThread):
         while True:
             try:
                 recvedMsg = self.connection.recv(1024).decode()
-                if recvedMsg:
+                print(recvedMsg)
+                if recvedMsg != 'TypeError: information':
                     self.cp.txb.append(recvedMsg)
                     self.cp.txb.moveCursor(QTextCursor.End)
+                else:
+                    self.connection.close()
+                    self.socket.close()
+                    self.cp.end()
+
             except:
+                self.socket.close()
                 self.connection.close()
-                return
 
     def send(self,msg):
-        if self.connection:
-            self.connection.send(msg.encode())
 
+        try:
+            if self.connection:
+                self.connection.send(msg.encode())
+        except:
+            self.connection.close()
+            self.socket.close()
+            self.cp.end()
 
 #继承 QThread 类
 class RequireThread(QThread):
@@ -119,6 +149,8 @@ class RequireThread(QThread):
     #重写 run() 函数，在里面干大事。
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = sock
+        sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 
         print(self.mc.otherIP)
         sock.connect((self.mc.otherIP, 5550))
@@ -139,14 +171,20 @@ class RequireThread(QThread):
         while True:
             try:
                 recvedMsg = self.connection.recv(1024).decode()
-                if recvedMsg:
+                print(recvedMsg)
+                if recvedMsg != 'TypeError: information':
                     self.cp.txb.append(recvedMsg)
                     self.cp.txb.moveCursor(QTextCursor.End)
-
+                else:
+                    self.connection.close()
+                    self.cp.end()
             except:
                 self.connection.close()
-                return
 
     def send(self,msg):
-        if self.connection:
-            self.connection.send(msg.encode())
+        try:
+            if self.connection:
+                self.connection.send(msg.encode())
+        except:
+            self.connection.close()
+            self.cp.end()

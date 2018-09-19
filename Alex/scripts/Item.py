@@ -42,11 +42,16 @@ class Item1(QWidget):
         # print(res.text)
         result = json.loads(res.text)
         if result['status']:
-            print(1)
+
             self.mc.chatOther = self.itemInfo['seller_name']
             self.mc.chatState = 'r'
             self.mc.otherIP = ip
-            ChatPage.ChatPage(self.mc).run()
+            try:
+                ChatPage.ChatPage(self.mc).run()
+                QMessageBox.information(self, "结束", "聊天已结束!", QMessageBox.Yes)
+            except:
+                return
+
         else:
             QMessageBox.information(self, "错误", "无法与该卖家通信!", QMessageBox.Yes)
         # except:
@@ -91,7 +96,11 @@ class Item3(QWidget):
         self.itemInfo = item
         self.lbl_itemName.setText(self.itemInfo['goods_name'])
         self.lbl_lastBidder.setText(self.itemInfo['lastbid_username'])
-        self.lbl_endTime.setText(self.itemInfo['lastbid_time'])
+        t = self.itemInfo['lastbid_time']
+        if t:
+            self.lbl_endTime.setText(t[0:10] + ' '+ t[11:19])
+        else:
+            self.lbl_endTime.setText('无')
         self.lbl_curPrice.setText(str(self.itemInfo['lastprice']))
         self.btn_itemDetail.clicked.connect(self.itemDetail)
 
