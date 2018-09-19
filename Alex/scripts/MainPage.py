@@ -4,6 +4,9 @@ from PyQt5.uic import loadUi
 import sys
 import Item
 import ChatPage
+import SellPage
+import requests
+import json
 
 class MainPage(QDialog):
     close_signal = pyqtSignal()
@@ -20,11 +23,11 @@ class MainPage(QDialog):
         self.btn_state1.clicked.connect(self.toState1)
         self.btn_state2.clicked.connect(self.toState2)
         self.btn_state3.clicked.connect(self.toState3)
-        self.btn_state4.clicked.connect(self.toState4)
         self.btn_logout.clicked.connect(self.logout)
         self.btn_addMoney.clicked.connect(self.addMoney)
         self.btn_startChat.clicked.connect(self.startChat)
-
+        self.btn_sell.clicked.connect(self.sell)
+        self.btn_fresh.clicked.connect(self.getChat)
 
     def toState1(self):
         self.mc.searchState = 1
@@ -38,34 +41,35 @@ class MainPage(QDialog):
         self.mc.searchState = 3
         self.getState()
 
-    def toState4(self):
-        self.mc.searchState = 4
-        self.getState()
-
-
     def getItemInfo(self):
         self.mc.items = []
-        if self.mc.searchState == 1:
-            for i in range(5):
-                tmp = {}
-                tmp['itemName'] = '商品'+str(i)
-                tmp['seller'] = '卖家'+str(i)
-                tmp['startTime'] = '开始时间'+str(i)
-                tmp['startPrice'] = str(i*100)
-                self.mc.items.append(tmp)
+        ##########################
+        # 访问主服务器 获取商品信息
+        ##########################
+        url = self.mc.url + '/goods?'
+        url += 'status=' + str(self.mc.searchState)
+
+        try:
+            res = requests.get(url)
+            result = json.loads(res.text)
+            for x in result:
+                self.mc.items.append(x)
+        except:
+            pass
 
     def getState(self):
         self.setLine()
         self.getItemInfo()
-
         self.itemWidget.destroy()
         self.itemWidget = QWidget()
         self.sca.setWidget(self.itemWidget)
         self.vLayout = QVBoxLayout(self.itemWidget)
         self.vLayout.setContentsMargins(0, 0, 0, 0)
         self.vLayout.setSpacing(0)
+        ##########################
         for i in range(len(self.mc.items)):
-            item = Item.Item1(self.mc,i)
+            item = Item.Item1(self.mc,self.mc.items[i])
+            # item.setStyleSheet("background-color:rgb(230,255,255)")
             item.setMinimumSize(521, 100)
             self.vLayout.addWidget(item, alignment=Qt.AlignTop)
         self.vLayout.addStretch(1)
@@ -95,6 +99,9 @@ class MainPage(QDialog):
         #开始p2p
         #########################################
         self.mc.chatOther = other
+        self.mc.chatState = 's'
+
+        self.mc.otherIP = self.mc.chats[self.lwg_other.selectedItems()[0].text()]
         ChatPage.ChatPage(self.mc).run()
         # self.mc.nextPage = 'chatPage'
         # self.close()
@@ -103,19 +110,38 @@ class MainPage(QDialog):
         if not self.mc.nextPage:
             sys.exit()
 
+    def sell(self):
+        SellPage.SellPage(self.mc).run()
+
+    def getChat(self):
+        for i in range(self.lwg_other.count()):
+            self.lwg_other.takeItem(0)
+
+        url = self.mc.url + '/chat?'
+        url += 'username=' + self.mc.username
+        try:
+            res = requests.get(url)
+            result = json.loads(res.text)
+            for x in result:
+                print(x)
+                print(x['sourceName'])
+                self.mc.chats[x['sourceName']] = x['sourceIP']
+                self.lwg_other.addItem(x['sourceName'])
+        except:
+            print('error')
+
+
     def run(self):
         self.mc.nextPage = None
         self.lbl_username.setText(self.mc.username)
+        #填写角色
         r = ''
         for x in self.mc.roles:
             r += x + '\n'
         self.lbl_roles.setText(r)
+        #判断是否管理员
         if not '商品管理员' in self.mc.roles:
-            self.btn_state4.setEnabled(False)
+            self.btn_state1.setEnabled(False)
+
         self.lbl_money.setText(str(self.mc.money) + ' 元')
-        for i in range(100):
-            self.lwg_other.addItem(str(i))
-
         self.exec_()
-
-
