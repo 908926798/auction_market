@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7da22726-83ad-4850-8f8f-9c5e7c775f61" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/Serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../ConnollyLeon/DB/database/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +36,7 @@
     <session id="-570533539">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.opened" value="1" />
         </counts>

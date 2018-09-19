@@ -1,15 +1,13 @@
 from django.db import models
 
-from pygments.lexers import get_all_lexers         # 一个实现代码高亮的模块
-from pygments.styles import get_all_styles
 
-LEXERS = [item for item in get_all_lexers() if item[1]]
-LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS]) # 得到所有编程语言的选项
-STYLE_CHOICES = sorted((item, item) for item in get_all_styles())     # 列出所有配色风格
 
 
 # Create your models here.
 class Goods(models.Model):
+    class Meta:
+        verbose_name = '商品'
+        verbose_name_plural = '商品'
     G_number = models.AutoField(primary_key=True)
     goods_name = models.CharField(max_length=30)
     seller_name = models.ForeignKey("user", on_delete=models.CASCADE)
@@ -30,6 +28,9 @@ class Goods(models.Model):
 
 
 class User(models.Model):
+    class Meta:
+        verbose_name = '用户'
+        verbose_name_plural = '用户'
     username = models.CharField(max_length=20, primary_key=True)
     password = models.CharField(max_length=256)
     nickname = models.CharField(max_length=20, default='none')
@@ -57,11 +58,12 @@ class User(models.Model):
 
 
 class PrivateChat(models.Model):
-    sourceName = models.CharField(max_length=20, primary_key=True)
+    class Meta:
+        verbose_name = '私聊'
+        verbose_name_plural = '私聊'
+    sourceName = models.ForeignKey(User, related_name='sourceName')
+    targetName = models.ForeignKey(User, related_name='targetName')
     sourceIP = models.CharField(max_length=20)
-    targetName = models.ForeignKey("User", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.sourceIP
-
-

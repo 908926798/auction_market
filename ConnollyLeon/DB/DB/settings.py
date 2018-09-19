@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'auc',
         'USER': 'root',
         'PASSWORD': 'yueyue',
-        'HOST': '192.168.1.1',
+        'HOST': '192.168.43.23',
         'PORT': '3306',
         'CHARSET': 'utf8',
     }
@@ -131,7 +131,7 @@ CACHES = {
     'default':{
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION':[
-            '192.168.88.1:11211',
+            '192.168.88.1:11211'
         ]
     }
 }

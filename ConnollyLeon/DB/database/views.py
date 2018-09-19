@@ -109,18 +109,18 @@ def goods(request):
         print(price)
         print(detail)
         result = {}
-        # try:
-        print('testing')
-        user = User.objects.get(username=username)
-        Goods.objects.create(seller_name=user, goods_name=itemname, minimum_price=price, detail=detail)
-        print('Am I here?')
-        result['status'] = 1
-        result = json.dumps(result)
-        return HttpResponse(result, content_type='application/json;charset=utf-8')
-        # except:
-        #    result['status'] = 0
-        #    result = json.dumps(result)
-        #    return HttpResponse(result, content_type='application/json;charset=utf-8')
+        try:
+            print('testing')
+            user = User.objects.get(username=username)
+            Goods.objects.create(seller_name=user, goods_name=itemname, minimum_price=price, detail=detail)
+            print('Am I here?')
+            result['status'] = 1
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+        except ObjectDoesNotExist as e:
+            result['status'] = 0
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
 
     elif request.method == 'GET':
         status = request.GET.get('status')
@@ -134,3 +134,29 @@ def goods(request):
         result = json.dumps(result)
 
         return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+def chat(request):
+    if request.method=='POST':
+        fromname = request.POST.get("fromname")
+        toname = request.POST.get("toname")
+        fromip = request.POST.get("fromip")
+        print(fromname)
+        print(toname)
+        print(fromip)
+        result={}
+        try:
+            fromuser = User.objects.get(username=fromname)
+            touser = User.objects.get(username=toname)
+            chat = PrivateChat.object.create(sourceName=fromuser,targetName=touser, sourceIP=fromip)
+            result['status']=1
+            result=json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+        except ObjectDoesNotExist as e:
+            result['status']=0
+            result=json.dumps(result)
+
+            return HttpResponse(result,content_type='application/json;charset=utf-8')
+
+
+
