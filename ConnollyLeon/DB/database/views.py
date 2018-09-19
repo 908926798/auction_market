@@ -138,7 +138,7 @@ def goods(request):
             return JsonResponse(serializer.data, safe=False)
         elif (status == '3'):
             goods = Goods.objects.filter(status='end')
-            serializer = GoodsInSerializer(goods, many=True)
+            serializer = GoodsEndSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
         result = {}
         result['status'] = 0
