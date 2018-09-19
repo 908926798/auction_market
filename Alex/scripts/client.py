@@ -35,7 +35,7 @@ if __name__ == "__main__":
     mc.pages['mainPage'] = MainPage.MainPage(mc)
     mc.pages['auctionPage'] = AuctionPage.AuctionPage(mc)
 
-    mc.nextPage = 'mainPage'
+    mc.nextPage = 'auctionPage'
 
     while(mc.nextPage):
         mc.pages[mc.nextPage].run()

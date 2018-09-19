@@ -97,12 +97,10 @@ class ListenThread(QThread):
         connection, addr = sock.accept()
         self.cp.lbl_other.setText('正在与   ' + self.mc.chatOther + "   聊天")
         self.connection = connection
-        print("ccc")
-        print(connection)
         # try:
-        buf = connection.recv(1024).decode()
+        # buf = connection.recv(1024).decode()
         # if buf == '1':
-        connection.send(b'welcome to server!')
+        # connection.send(b'welcome to server!')
 
         # new thread
         mythread = threading.Thread(target=self.subThreadIn, args=())
@@ -152,14 +150,11 @@ class RequireThread(QThread):
         self.socket = sock
         sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 
-        print(self.mc.otherIP)
+        # print(self.mc.otherIP)
         sock.connect((self.mc.otherIP, 5550))
-        sock.send(b'1')
-        print(sock.recv(1024).decode())
+        # print(sock.recv(1024).decode())
 
         self.connection = sock
-        print("ccc")
-        print(sock)
 
         mythread = threading.Thread(target=self.subThreadIn, args=())
         mythread.setDaemon(True)
