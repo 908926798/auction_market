@@ -3,14 +3,26 @@ import socket
 import threading
 import sys
 import time
-from multiprocessing import Process
+import mysql.connector
+import multiprocessing
 from multiprocessing import Pool
 import os
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 #message=raw_input("please input the commodity you what to trade:")#to get the commodity's information
-message=["vases","book","pig"]
+
+
+config = {
+    'host': '192.168.43.23',
+    'user': 'root',
+    'password': 'yueyue',
+    'port': 3306,
+    'database': 'auc',
+    'charset': 'utf8'
+}
+cnn = mysql.connector.connect(**config)
+cursor = cnn.cursor(buffered=True)
 
 
 def run_proc(message,port):
@@ -71,7 +83,7 @@ def run_proc(message,port):
                     if int(recvedMsg)>update_price[1]:
                         update_price[0]=mydict[connNumber]
                         update_price[1]=int(recvedMsg)
-                        ncount[1]=20 #update the codedown
+                        ncount[1]=10 #update the codedown
                         print("the updated price is:",update_price[0],":",update_price[1])
                         try:
                             tellOthers(connNumber,'\n'+ mydict[connNumber] + ' :' + recvedMsg)
@@ -129,6 +141,11 @@ def run_proc(message,port):
                 f = open("trade", "a+")
                 f.write(message + " " + update_price[0] + " " + str(update_price[1]) + "\n")
                 f.close()
+                cursor.execute('UPDATE database_goods SET lastbid_username = %s WHERE goods_name = %s',(update_price[0],message))
+                cursor.execute('UPDATE database_goods SET lastprice = %s WHERE goods_name = %s',(update_price[1],message))
+                cursor.execute('UPDATE database_goods SET lastbid_time = now() where goods_name = %s',(message,))
+                cursor.execute('UPDATE database_goods SET status = "end" where goods_name = %s', (message,))
+                cnn.commit()
                 return
 
     recordthread=threading.Thread(target=record, args=())
@@ -160,11 +177,14 @@ def run_proc(message,port):
                 pass
 
 if __name__=='__main__':
-    po=Pool(3)
-    a=po.apply_async(run_proc,(message[0],5550))
-    b=po.apply_async(run_proc,(message[1],6000))
-    c=po.apply_async(run_proc,(message[2],8080))
+    #cnn = mysql.connector.connect(**config)
+    cursor.execute('select goods_name from database_goods WHERE status="in"')
+    message = cursor.fetchall()
+    print message
+    length=len(message)
+    po=Pool()
+    for i in range (0,length):
+        po.apply_async(run_proc, (message[i][0], 5550+i*10))
     po.close()
     po.join()
-    if a.successful() and b.successful() and c.successful():
-        print "all is over"
+    print "all is over"
