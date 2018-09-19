@@ -56,12 +56,13 @@ def run_proc(message,port):
         tellOthers(connNumber, '\n'+"[[system hints：" + mydict[connNumber] + " enters chatroom]]")
         if ncount[1]==-1:
             tellOne(connNumber,'\n'+"[[system hints:the trade is closed]]")
+            sys.exit(0)
         else:
             tellOne(connNumber,'\n'+"[[system hints:Commodities being traded: "+message+"]]") #tell the freshman the information of commodity
         while True:
             try:
                 if ncount[1]==-1:
-                    break
+                    return
                 else:
                     recvedMsg = myconnection.recv(1024).decode()
                     if recvedMsg:
@@ -93,7 +94,7 @@ def run_proc(message,port):
                 while (count <= ncount[1]):
                     time.sleep(1)
                     ncount[1]-=1
-                break
+                return
     num=0
     codethread = threading.Thread(target=codedown, args=(num,))
     codethread.setDaemon(True)
@@ -103,7 +104,7 @@ def run_proc(message,port):
         numb=0
         while True:
             if ncount[1]==-1:
-                break
+                return
             else:
                 if whatToSay[1]%10==0 and numb==0:
                     numb=1
@@ -128,8 +129,7 @@ def run_proc(message,port):
                 f = open("trade", "a+")
                 f.write(message + " " + update_price[0] + " " + str(update_price[1]) + "\n")
                 f.close()
-                sys.exit(0)
-                break
+                return
 
     recordthread=threading.Thread(target=record, args=())
     recordthread.setDaemon(True)
@@ -139,6 +139,10 @@ def run_proc(message,port):
         if ncount[1]==-1:
             sock.shutdown(2)
             sock.close()
+            try:
+                sys.exit(0)
+            except:
+                print "closing process failed"
             break
         else:
             connection, addr = sock.accept()
@@ -157,9 +161,10 @@ def run_proc(message,port):
 
 if __name__=='__main__':
     po=Pool(3)
-    po.apply_async(run_proc,(message[0],5550))
-    po.apply_async(run_proc,(message[1],6000))
-    po.apply_async(run_proc,(message[2],8080))
+    a=po.apply_async(run_proc,(message[0],5550))
+    b=po.apply_async(run_proc,(message[1],6000))
+    c=po.apply_async(run_proc,(message[2],8080))
     po.close()
     po.join()
-    print "all is over"
+    if a.successful() and b.successful() and c.successful():
+        print "all is over"
