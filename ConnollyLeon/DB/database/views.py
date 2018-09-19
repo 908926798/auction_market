@@ -42,6 +42,10 @@ def login(request):
             print(user.password)
             if user.password == password:
                 result['status'] = 1
+                result['money'] = user.assets
+                result['U'] = user.isGeneralUser
+                result['GM'] = user.isAdministrator
+                print(result)
                 result = json.dumps(result)
                 return HttpResponse(result, content_type='application/json;charset=utf-8')
             else:
@@ -128,7 +132,14 @@ def goods(request):
             goods = Goods.objects.filter(status='review')
             serializer = GoodsReviewSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
-
+        elif (status == '2'):
+            goods = Goods.objects.filter(status='in')
+            serializer = GoodsInSerializer(goods, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        elif (status == '3'):
+            goods = Goods.objects.filter(status='end')
+            serializer = GoodsInSerializer(goods, many=True)
+            return JsonResponse(serializer.data, safe=False)
         result = {}
         result['status'] = 0
         result = json.dumps(result)
@@ -151,7 +162,7 @@ def chat(request):
             touser = User.objects.get(username=toname)
             try:
                 chat = PrivateChat.objects.get(sourceName=fromuser, targetName=touser)
-                chat.sourceIP=fromip
+                chat.sourceIP = fromip
                 chat.save()
             except ObjectDoesNotExist as e:
                 chat = PrivateChat.objects.create(sourceName=fromuser, targetName=touser, sourceIP=fromip)
@@ -171,3 +182,28 @@ def chat(request):
         chats = PrivateChat.objects.filter(targetName=user)
         serializer = PrivateChatSerializer(chats, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def money(request):
+    if request.method == 'POST':
+        addMoney = request.POST.get("money")
+        username = request.POST.get("username")
+        user = User.objects.get(username=username)
+        user.assets += int(addMoney)
+        user.save()
+
+        result = {}
+        result['status'] = 1
+        result['money'] = user.assets
+        result = json.dumps(result)
+        print(result)
+
+        return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+    elif request.method == 'GET':
+        print("GET 你个大球球")
+        username = request.GET.get("username")
+        user = User.objects.get(username=username)
+        print(user.assets)
+        return HttpResponse(user.assets)
