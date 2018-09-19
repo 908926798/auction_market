@@ -47,13 +47,13 @@
     <rect>
      <x>90</x>
      <y>10</y>
-     <width>71</width>
+     <width>120</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
+     <pointsize>18</pointsize>
     </font>
    </property>
    <property name="cursor">
