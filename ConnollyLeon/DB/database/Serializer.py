@@ -8,3 +8,7 @@ class GoodsReviewSerializer(serializers.Serializer):
 class GoodsInSerializer(serializers.Serializer):
     goods_name = serializers.CharField(max_length=30)
 
+
+class PrivateChatSerializer(serializers.Serializer):
+    sourceName = serializers.CharField(max_length=20)
+    sourceIP = serializers.CharField(max_length=20)
