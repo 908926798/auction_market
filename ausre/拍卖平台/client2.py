@@ -7,7 +7,7 @@ sys.setdefaultencoding('utf8')
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-sock.connect(('localhost', 8080))
+sock.connect(('localhost',5560))
 sock.send(b'1')
 print(sock.recv(1024).decode())
 nickName = raw_input('input your nickname: ')
