@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
+    <width>510</width>
     <height>100</height>
    </rect>
   </property>
@@ -32,24 +32,11 @@
     <string>商品名：</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>60</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>开拍时间：</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>20</y>
+     <x>40</x>
+     <y>60</y>
      <width>60</width>
      <height>16</height>
     </rect>
@@ -61,9 +48,9 @@
   <widget class="QPushButton" name="btn_itemDetail">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>320</x>
      <y>15</y>
-     <width>113</width>
+     <width>81</width>
      <height>32</height>
     </rect>
    </property>
@@ -84,17 +71,17 @@
     <string>底价：</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_chatSeller">
+  <widget class="QPushButton" name="btn_agree">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>320</x>
      <y>55</y>
-     <width>113</width>
+     <width>81</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
-    <string>联系卖家</string>
+    <string>通过</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_itemName">
@@ -113,19 +100,6 @@
   <widget class="QLabel" name="lbl_seller">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>20</y>
-     <width>60</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>卖家：</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_startTime">
-   <property name="geometry">
-    <rect>
      <x>90</x>
      <y>60</y>
      <width>60</width>
@@ -133,7 +107,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>开拍时间：</string>
+    <string>卖家：</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_startPrice">
@@ -206,7 +180,7 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>310</x>
      <y>15</y>
      <width>3</width>
      <height>70</height>
@@ -219,20 +193,46 @@
     <enum>Qt::Vertical</enum>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_disagree">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>55</y>
+     <width>81</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>不通过</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_chatSeller">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>15</y>
+     <width>81</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>联系卖家</string>
+   </property>
+  </widget>
   <zorder>textBrowser</zorder>
   <zorder>label</zorder>
-  <zorder>label_2</zorder>
   <zorder>label_4</zorder>
   <zorder>btn_itemDetail</zorder>
   <zorder>label_3</zorder>
-  <zorder>btn_chatSeller</zorder>
+  <zorder>btn_agree</zorder>
   <zorder>lbl_itemName</zorder>
   <zorder>lbl_seller</zorder>
-  <zorder>lbl_startTime</zorder>
   <zorder>lbl_startPrice</zorder>
   <zorder>line_2</zorder>
   <zorder>line_3</zorder>
   <zorder>line</zorder>
+  <zorder>btn_disagree</zorder>
+  <zorder>btn_chatSeller</zorder>
  </widget>
  <resources/>
  <connections/>

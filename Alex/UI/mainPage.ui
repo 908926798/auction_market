@@ -218,24 +218,6 @@
     <string>已卖出</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_state4">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>100</y>
-     <width>121</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>待审核</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_state1">
    <property name="geometry">
     <rect>
@@ -251,13 +233,7 @@
     </font>
    </property>
    <property name="text">
-    <string>未开卖</string>
-   </property>
-   <property name="default">
-    <bool>false</bool>
-   </property>
-   <property name="flat">
-    <bool>false</bool>
+    <string>待审核</string>
    </property>
   </widget>
   <widget class="QScrollArea" name="sca">
@@ -341,7 +317,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>以下用户想要跟你私聊：</string>
+    <string>有管理员想要跟你私聊：</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_logout">
@@ -411,6 +387,19 @@
    </property>
    <property name="checkable">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_sell">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>120</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>上架商品</string>
    </property>
   </widget>
  </widget>

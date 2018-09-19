@@ -23,9 +23,9 @@ class LoginPage(QDialog):
         url = self.mc.url + '/login?'
         url += 'login_name_email=' + self.lie_username.text()
         url += '&login_password=' + self.lie_password.text()
-        res = requests.get(url)
-        print(res.text)
-        if res.text:
+
+        try:
+            res = requests.get(url)
             result = json.loads(res.text)
             if result['status']:
                 self.mc.username = self.lie_username.text()
@@ -33,8 +33,9 @@ class LoginPage(QDialog):
                 self.close()
             else:
                 QMessageBox.information(self, "错误", "用户名或密码错误!", QMessageBox.Yes)
-        else:
-            QMessageBox.information(self, "错误", "用户名或密码错误!",QMessageBox.Yes)
+        except:
+            QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
+
         self.lie_username.setText('')
         self.lie_password.setText('')
 

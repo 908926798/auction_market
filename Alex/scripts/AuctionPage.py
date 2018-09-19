@@ -13,7 +13,6 @@ class AuctionPage(QDialog):
         super(AuctionPage, self).__init__(parent)
         loadUi('UI/auctionPage.ui',self)
         self.mc = mc
-        self.mc.mainPage = self
 
     def leaveAuction(self):
         self.mc.nextPage = 'mainPage'

@@ -13,24 +13,6 @@
   <property name="windowTitle">
    <string>Chat</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>10</y>
-     <width>101</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>18</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>的私聊</string>
-   </property>
-  </widget>
   <widget class="QTextBrowser" name="txb">
    <property name="geometry">
     <rect>
@@ -54,30 +36,12 @@
     <string>按回车键发送消息：</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>10</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>18</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>与</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="lbl_other">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>30</x>
      <y>10</y>
-     <width>121</width>
+     <width>281</width>
      <height>21</height>
     </rect>
    </property>
@@ -106,7 +70,7 @@
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
-    <string>结束聊天</string>
+    <string>开始聊天</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lie">
