@@ -336,8 +336,8 @@
   <widget class="Line" name="lin">
    <property name="geometry">
     <rect>
-     <x>900</x>
-     <y>170</y>
+     <x>1500</x>
+     <y>210</y>
      <width>20</width>
      <height>31</height>
     </rect>
