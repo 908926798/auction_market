@@ -67,6 +67,7 @@ class MainPage(QDialog):
         self.vLayout = QVBoxLayout(self.itemWidget)
         self.vLayout.setContentsMargins(0, 0, 0, 0)
         self.vLayout.setSpacing(0)
+        print(1111)
         ##########################
         for i in range(len(self.mc.items)):
             if self.mc.searchState == 1:

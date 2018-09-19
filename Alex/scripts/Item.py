@@ -24,7 +24,7 @@ class Item1(QWidget):
         self.btn_disagree.clicked.connect(self.disagree)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
+        ItemDetail(self.mc,self.itemInfo).run()
 
     def chatSeller(self):
         url = self.mc.url + '/chat/'
@@ -58,10 +58,25 @@ class Item1(QWidget):
         #     QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
 
     def agree(self):
-        pass
+        self.judgeItem(1)
 
     def disagree(self):
-        pass
+        self.judgeItem(0)
+
+    def judgeItem(self,r):
+        url = self.mc.url + '/judgement/'
+        info = {'G_number': self.itemInfo['G_number'],
+                'result': r}
+        try:
+            res = requests.post(url, data=info)
+            # print(res.text)
+            result = json.loads(res.text)
+            if result['status']:
+                print(2222)
+                self.mc.mainPage.getState()
+        except:
+            QMessageBox.information(self, "错误", "通讯失败!", QMessageBox.Yes)
+
 
 class Item2(QWidget):
     def __init__(self, mc,item,parent=None):
@@ -79,7 +94,7 @@ class Item2(QWidget):
         self.btn_itemDetail.clicked.connect(self.itemDetail)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
+        ItemDetail(self.mc,self.itemInfo).run()
 
     def joinAuction(self):
         self.mc.acutionItem = self.itemInfo['itemName']
@@ -105,7 +120,7 @@ class Item3(QWidget):
         self.btn_itemDetail.clicked.connect(self.itemDetail)
 
     def itemDetail(self):
-        ItemDetail(self.mc,[]).run()
+        ItemDetail(self.mc,self.itemInfo).run()
 
 class ItemDetail(QDialog):
     close_signal = pyqtSignal()
@@ -116,10 +131,22 @@ class ItemDetail(QDialog):
         loadUi('UI/itemDetail.ui',self)
         # self.btn_toRegister.clicked.connect(self.toRegister)
         self.mc = mc
+        self.itemInfo = itemInfo
         self.btn_ok.clicked.connect(self.ok)
 
     def ok(self):
         self.close()
 
     def run(self):
+
+        url = self.mc.url + '/detail?'
+        url += 'G_number=' + str(self.itemInfo['G_number'])
+        try:
+            res = requests.get(url)
+            result = json.loads(res.text)
+            print(result)
+        except:
+            pass
+
+
         self.exec_()
