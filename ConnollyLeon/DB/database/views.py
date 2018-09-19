@@ -207,3 +207,47 @@ def money(request):
         user = User.objects.get(username=username)
         print(user.assets)
         return HttpResponse(user.assets)
+
+
+@csrf_exempt
+def judgement(request):
+    if request.method == 'POST':
+        G_number = request.POST.get("G_number")
+        result = request.POST.get("result")
+        goods = Goods.objects.get(G_number=G_number)
+        print(G_number)
+        print(result)
+        if result == '1':
+            print('hello')
+            goods.status = 'in'
+            goods.save()
+            Result = {}
+            Result['status'] = 1
+            Result = json.dumps(Result)
+            return HttpResponse(Result, content_type='application/json;charset=utf-8')
+        elif result == '0':
+            print('nono')
+            goods.delete()
+            Result = {}
+            Result['status'] = 1
+            Result = json.dumps(Result)
+            return HttpResponse(Result, content_type='application/json;charset=utf-8')
+        else:
+            Result = {}
+            Result['status'] = 0
+            Result = json.dumps(Result)
+            return HttpResponse(Result, content_type='application/json;charset=utf-8')
+    else:
+        Result = {}
+        Result['status'] = 0
+        Result = json.dumps(Result)
+        return HttpResponse(Result, content_type='application/json;charset=utf-8')
+
+
+@csrf_exempt
+def detail(request):
+    if request.method == 'GET':
+        G_number = request.GET.get('G_number')
+        goods = Goods.objects.filter(G_number=G_number)
+        serializer = GoodsSerializer(goods, many=True)
+        return JsonResponse(serializer.data, safe=False)
