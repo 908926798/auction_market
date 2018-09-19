@@ -70,7 +70,7 @@
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
-    <string>开始聊天</string>
+    <string>结束聊天</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lie">

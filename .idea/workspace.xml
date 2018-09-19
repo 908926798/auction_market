@@ -2,6 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="251404c6-fb4b-4098-98b7-0f4745dd1694" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/Alex/UI/chatPage.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/UI/chatPage.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alex/UI/item3.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/UI/item3.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alex/scripts/ChatPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/scripts/ChatPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alex/scripts/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/scripts/Item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alex/scripts/MainPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/scripts/MainPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alex/scripts/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Alex/scripts/client.py" afterDir="false" />
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/auction_market.iml" afterPath="$PROJECT_DIR$/.idea/auction_market.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -18,6 +26,7 @@
       <change type="MOVED" beforePath="$PROJECT_DIR$/Alex/UI/mainPage.ui" afterPath="$PROJECT_DIR$/Alex/scripts/UI/mainPage.ui" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/Alex/UI/registerPage.ui" afterPath="$PROJECT_DIR$/Alex/scripts/UI/registerPage.ui" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/Alex/UI/sellPage.ui" afterPath="$PROJECT_DIR$/Alex/scripts/UI/sellPage.ui" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,27 +51,27 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="md" value="1" />
-          <entry key="py" value="28" />
+          <entry key="py" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Markdown" value="1" />
-          <entry key="Python" value="28" />
+          <entry key="Python" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="38" />
           <entry key="md" value="544" />
-          <entry key="py" value="10206" />
+          <entry key="py" value="10924" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="544" />
           <entry key="PLAIN_TEXT" value="38" />
-          <entry key="Python" value="10206" />
+          <entry key="Python" value="10924" />
         </counts>
       </usages-collector>
     </session>
@@ -72,20 +81,36 @@
       <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/client.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="126">
+              <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+                <marker date="1537345170934" expanded="true" signature="164:659" ph="..." />
+=======
             <state relative-caret-position="162">
               <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alex/scripts/LoginPage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+=======
       <file leaf-file-name="LoginPage.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/LoginPage.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="249">
               <caret line="11" column="52" lean-forward="false" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -96,8 +121,13 @@
       <file leaf-file-name="RegisterPage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/RegisterPage.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="220">
+              <caret line="45" column="77" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="77" />
+=======
             <state relative-caret-position="1080">
               <caret line="45" column="39" lean-forward="false" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -108,10 +138,21 @@
       <file leaf-file-name="MainPage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/MainPage.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="525">
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+                <marker date="1537344243247" expanded="true" signature="1080:1299" ph="..." />
+                <marker date="1537344243247" expanded="true" signature="1326:1335" ph="..." />
+                <marker date="1537344243247" expanded="true" signature="1766:1770" ph="..." />
+                <marker date="1537344243247" expanded="true" signature="4822:5175" ph="..." />
+=======
             <state relative-caret-position="4185">
               <caret line="163" column="39" lean-forward="false" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               </folding>
             </state>
           </provider>
@@ -120,8 +161,13 @@
       <file leaf-file-name="SellPage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/SellPage.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="726">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+=======
             <state relative-caret-position="756">
               <caret line="34" column="12" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -129,6 +175,20 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Alex/scripts/ChatPage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="710">
+              <caret line="106" column="20" lean-forward="true" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+              <folding>
+                <element signature="e#47#76#0" expanded="true" />
+                <marker date="1537345185716" expanded="true" signature="839:967" ph="..." />
+                <marker date="1537345185716" expanded="true" signature="985:1069" ph="..." />
+                <marker date="1537345185716" expanded="true" signature="985:1074" ph="..." />
+                <marker date="1537345185716" expanded="true" signature="1438:1443" ph="..." />
+                <marker date="1537345185716" expanded="true" signature="1889:1988" ph="..." />
+=======
       <file leaf-file-name="Item.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/Item.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -136,17 +196,26 @@
               <caret line="88" column="34" lean-forward="false" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="34" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2018.2/python_stubs/864189109/PyQt5/QtWidgets/QDialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+=======
       <file leaf-file-name="ChatPage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alex/scripts/ChatPage.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2781">
               <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
             </state>
           </provider>
         </entry>
@@ -154,8 +223,13 @@
       <file leaf-file-name="client2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/client2.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="396">
+              <caret line="18" selection-start-line="18" selection-end-line="24" selection-end-column="17" />
+=======
             <state relative-caret-position="324">
               <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -163,25 +237,42 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Alex/scripts/Item.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="106" column="25" lean-forward="true" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
+=======
       <file leaf-file-name="server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/server.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1701">
               <caret line="65" column="0" lean-forward="false" selection-start-line="64" selection-start-column="28" selection-end-line="65" selection-end-column="0" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
-                <element signature="e#14#27#0" expanded="true" />
+                <element signature="e#0#29#0" expanded="true" />
+                <marker date="1537345660338" expanded="true" signature="890:1906" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1219">
+              <caret line="65" lean-forward="true" selection-start-line="64" selection-start-column="28" selection-end-line="65" />
+=======
       <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/client.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
               <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#14#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -218,12 +309,12 @@
         <option value="$PROJECT_DIR$/asure/简单的聊天室程序/client.py" />
         <option value="$PROJECT_DIR$/asure/简单的聊天室程序/server.py" />
         <option value="$PROJECT_DIR$/ausre/简单的聊天室程序/server.py" />
-        <option value="$PROJECT_DIR$/Alex/scripts/ChatPage.py" />
-        <option value="$PROJECT_DIR$/Alex/scripts/Item.py" />
         <option value="$PROJECT_DIR$/ausre/简单的聊天室程序/client.py" />
+        <option value="$PROJECT_DIR$/Alex/scripts/LoginPage.py" />
         <option value="$PROJECT_DIR$/Alex/scripts/MainPage.py" />
         <option value="$PROJECT_DIR$/Alex/scripts/client.py" />
-        <option value="$PROJECT_DIR$/Alex/scripts/LoginPage.py" />
+        <option value="$PROJECT_DIR$/Alex/scripts/ChatPage.py" />
+        <option value="$PROJECT_DIR$/Alex/scripts/Item.py" />
       </list>
     </option>
   </component>
@@ -521,7 +612,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+=======
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25701943" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -811,26 +906,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1701">
-          <caret line="65" column="0" lean-forward="true" selection-start-line="64" selection-start-column="28" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
+<<<<<<< HEAD
+        <state relative-caret-position="100">
           <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+=======
+        <state relative-caret-position="1701">
+          <caret line="65" column="0" lean-forward="true" selection-start-line="64" selection-start-column="28" selection-end-line="65" selection-end-column="0" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/LoginPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="236">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+=======
+        <state relative-caret-position="54">
+          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/RegisterPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="45" column="77" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="77" />
+=======
     <entry file="file://$PROJECT_DIR$/Alex/scripts/LoginPage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="891">
@@ -879,22 +990,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1219">
+          <caret line="65" lean-forward="true" selection-start-line="64" selection-start-column="28" selection-end-line="65" />
+          <folding>
+            <element signature="e#14#27#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/client2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/ausre/简单的聊天室程序/client2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" selection-start-line="18" selection-end-line="24" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/Alex/scripts/ChatPage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2781">
@@ -909,56 +1038,110 @@
           <caret line="88" column="34" lean-forward="false" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="34" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Alex/scripts/SellPage.py">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2018.2/python_stubs/864189109/PyQt5/QtWidgets/QDialog.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="206">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+=======
         <state relative-caret-position="756">
           <caret line="34" column="12" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1537345170934" expanded="true" signature="164:659" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/MainPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <marker date="1537344243247" expanded="true" signature="1080:1299" ph="..." />
+            <marker date="1537344243247" expanded="true" signature="1326:1335" ph="..." />
+            <marker date="1537344243247" expanded="true" signature="1766:1770" ph="..." />
+            <marker date="1537344243247" expanded="true" signature="4822:5175" ph="..." />
+=======
     <entry file="file://$PROJECT_DIR$/Alex/scripts/client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="12" column="23" lean-forward="false" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/SellPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+=======
     <entry file="file://$PROJECT_DIR$/Alex/scripts/RegisterPage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1080">
           <caret line="45" column="39" lean-forward="false" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/ChatPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="710">
+          <caret line="106" column="20" lean-forward="true" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+          <folding>
+            <element signature="e#47#76#0" expanded="true" />
+            <marker date="1537345185716" expanded="true" signature="839:967" ph="..." />
+            <marker date="1537345185716" expanded="true" signature="985:1069" ph="..." />
+            <marker date="1537345185716" expanded="true" signature="985:1074" ph="..." />
+            <marker date="1537345185716" expanded="true" signature="1438:1443" ph="..." />
+            <marker date="1537345185716" expanded="true" signature="1889:1988" ph="..." />
+=======
     <entry file="file://$PROJECT_DIR$/Alex/scripts/MainPage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4185">
           <caret line="163" column="39" lean-forward="false" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Alex/scripts/LoginPage.py">
+    <entry file="file://$PROJECT_DIR$/Alex/scripts/Item.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="465">
+          <caret line="106" column="25" lean-forward="true" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
+=======
         <state relative-caret-position="249">
           <caret line="11" column="52" lean-forward="false" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+>>>>>>> 0478896e9e594c941072927a5e6f1aaba1409482
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+            <marker date="1537345660338" expanded="true" signature="890:1906" ph="..." />
           </folding>
         </state>
       </provider>
