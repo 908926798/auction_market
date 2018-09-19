@@ -10,19 +10,19 @@ import os
 reload(sys)
 sys.setdefaultencoding('utf8')
 #message=raw_input("please input the commodity you what to trade:")#to get the commodity's information
-message=["vases","book","pig"]
+message=["vases","book","pig"]#Ò»¸ö¼òµ¥µÄ´æ´¢ÁËÒªÅÄÂôµÄÉÌÆ·ĞÅÏ¢µÄ¶«Î÷
 
-def run_proc(message,port):
+def run_proc(message,port):#Ã¿¸öÉÌÆ·ÅÄÂôÕ¼ÁËÒ»¸ö½ø³Ì£¬½ø³ÌÀï¿ªÁËĞí¶àÏß³Ì£¬ÖîÈç·¢ĞÅÏ¢£¬ÊÕĞÅÏ¢ºÍµ¹¼ÆÊ±
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(('localhost', port))
     sock.listen(5)
-    print('Server', socket.gethostbyname('localhost'), 'listening ...')
+    print('Server', socket.gethostbyname('localhost'), 'listening ...')   
     mydict = dict()
-    mylist = list()
-    update_price=['',0]#initial the name and price
-    ncount=["surplus_transaction_time:",9999] #record the number of the guests.when num=1,start the countdown
+    mylist = list() #´æ´¢ÁËÓÃ»§ĞÅÏ¢µÄÒ»¸öÁĞ±í
+    update_price=['',0]#initial the name and price ×îÖÕµÃµ½ÉÌÆ·µÄÓÃ»§µÄĞÕÃûºÍ³É½»µÄ¼Û¸ñ£¬³õÊ¼»¯ĞÕÃûÎª¿Õ£¬¼Û¸ñÎª0
+    ncount=["surplus_transaction_time:",9999] #record the number of the guests.when num=1,start the countdown ÓÃÀ´ÉèÖÃµ¹¼ÆÊ±£¬Ã»ÓĞÈË¾ºÅÄÊ±Ò»Ö±µÈ´ı£¬µ¹¼ÆÊ±Ê±¼äÎª9999£¨ÎŞÇî´ó£©
 
-    def tellOthers(exceptNum, whatToSay):#can be used several times
+    def tellOthers(exceptNum, whatToSay):#can be used several times ¶ÔÒ»¸öÓÃ»§·¢À´µÄÏûÏ¢£¬¸æÖªÆäËûÓÃ»§
         for c in mylist:
             if c.fileno() != exceptNum:
                 try:
@@ -30,7 +30,7 @@ def run_proc(message,port):
                 except:
                     pass
 
-    def tellOne(exceptNum,whatToSay):#can be used several times
+    def tellOne(exceptNum,whatToSay):#can be used several times°ÑĞÅÏ¢µ¥¶À·¢ËÍ¸øÒ»¸öÓÃ»§
         for c in mylist:
             if c.fileno()== exceptNum:
                 try:
@@ -39,7 +39,7 @@ def run_proc(message,port):
                 except:
                     pass
 
-    def telltoALL(whatToSay):#can be used several times
+    def telltoALL(whatToSay):#can be used several times°ÑĞÅÏ¢¸æËßËùÓĞÓÃ»§
         for c in mylist:
             try:
                 c.send(whatToSay.encode())
@@ -52,7 +52,7 @@ def run_proc(message,port):
         mydict[myconnection.fileno()] = nickname
         mylist.append(myconnection)
         print('connection', connNumber, ' has nickname :', nickname)
-        tellOthers(connNumber, '\n'+"[[system hintsï¼š" + mydict[connNumber] + " enters chatroom]]")
+        tellOthers(connNumber, '\n'+"[[system hints£º" + mydict[connNumber] + " enters chatroom]]")
         tellOne(connNumber,'\n'+"[[system hints:Commodities being traded: "+message+"]]") #tell the freshman the information of commodity
         while True:
             try:
@@ -60,19 +60,19 @@ def run_proc(message,port):
                 if recvedMsg:
                     print(mydict[connNumber], ':', recvedMsg)#print the connector's name and bid price
                 #then we update the updated_price and the duration
-                    if ncount[1]==-1:
+                    if ncount[1]==-1:  #Èç¹ûµ¹¼ÆÊ±±ä³ÉÁË-1£¬´ú±í½»Ò×¹Ø±Õ£¬´ËÊ±Èç¹ûÓĞÓÃ»§³¢ÊÔ¾ºÅÄ£¬¾Í»áÊÕµ½¡°¶Ô²»Æğ£¬½»Ò×ÒÑ¹Ø±Õ¡±µÄÏûÏ¢
                         try:
                             tellOne(connNumber, "sorry the trade is closed")
                         except:
                             pass
-                    if int(recvedMsg)>update_price[1]:
+                    if int(recvedMsg)>update_price[1]:#Èç¹ûµ¹¼ÆÊ±Ã»ÓĞ½áÊø£¬Ò²¾ÍÊÇÈÔ¿É½»Ò×¡£´ËÊ±¾ºÅÄ¼Û¸ñ¸ßÓÚËûÈË
                         if ncount[1]!=-1:
-                            update_price[0]=mydict[connNumber]
+                            update_price[0]=mydict[connNumber]#¸Ä±ä¾º¼Û×î¸ßµÄÓÃ»§ĞÕÃûºÍ¾ºÅÄ¼Û¸ñ
                             update_price[1]=int(recvedMsg)
-                            ncount[1]=60 #update the codedown
+                            ncount[1]=60 #update the codedown#ÖØÖÃµ¹¼ÆÊ±
                             print("the updated price is:",update_price[0],":",update_price[1])
                             try:
-                                tellOthers(connNumber,'\n'+ mydict[connNumber] + ' :' + recvedMsg)
+                                tellOthers(connNumber,'\n'+ mydict[connNumber] + ' :' + recvedMsg)#¹ã¶ø¸æÖ®
                             except:
                                 pass
 
@@ -83,12 +83,12 @@ def run_proc(message,port):
                     mylist.remove(myconnection)
                 except:
                     pass
-                print(mydict[connNumber], 'exit, ', len(mylist), ' person left')
-                tellOthers(connNumber, '\n'+'[[system hintsï¼š' + mydict[connNumber] + ' leaves]]')
+                print(mydict[connNumber], 'exit, ', len(mylist), ' person left')#Ò²¾ÍÊÇÓÃ»§ÍË³ö¸æËß±ğÈË£¬Ã»Ê²Ã´ÓÃ
+                tellOthers(connNumber, '\n'+'[[system hints£º' + mydict[connNumber] + ' leaves]]')
                 myconnection.close()
                 return
 
-    def codedown(count):
+    def codedown(count):#µ¹¼ÆÊ±
         while True:
             if ncount[1]!=-1 and ncount[1]!=9999:
                 while (count <= ncount[1]):
@@ -96,17 +96,17 @@ def run_proc(message,port):
                     ncount[1]-=1
                 print 'done'
                 print ncount[1]
-                telltoALL('\n'+"[[system hints: "+update_price[0]+" finnaly get the commodity "+"by "+str(update_price[1])+" yuan"+"]]")
+                telltoALL('\n'+"[[system hints: "+update_price[0]+" finnaly get the commodity "+"by "+str(update_price[1])+" yuan"+"]]")#µ¹¼ÆÊ±½áÊøÍ¨ÖªËùÓĞÈË³É½»¼Û¸ñºÍ³É½»ÓÃ»§
                 break
     num=0
-    codethread = threading.Thread(target=codedown, args=(num,))
+    codethread = threading.Thread(target=codedown, args=(num,))#¼ÓÈëÏß³Ì
     codethread.setDaemon(True)
     codethread.start()
 
-    def tellAll(whatToSay): #announce the codedown
+    def tellAll(whatToSay): #announce the codedown #Í¨Öª¸øÓÃ»§µ¹¼ÆÊ±µÄ£¬Ã¿Ê®ÃëÍ¨ÖªÒ»´Î
         numb=0
         while True:
-            if whatToSay[1]%10==0 and numb==0:
+            if whatToSay[1]%10==0 and numb==0:#ÒòÎªÏß³ÌÂï£¬·ÀÖ¹Ò»ÃëÍ¨ÖªºÃ¼¸´Î
                 numb=1
                 for c in mylist:
                     try:
@@ -117,13 +117,13 @@ def run_proc(message,port):
                 if whatToSay[1]%10!=0:
                     numb=0
 
-    announcethread = threading.Thread(target=tellAll, args=(ncount,))
+    announcethread = threading.Thread(target=tellAll, args=(ncount,))#¼ÓÈëÏß³Ì
     announcethread.setDaemon(True)
     announcethread.start()
 
     while True:
-        if ncount[1]==-1:
-            sock.shutdown(2)
+        if ncount[1]==-1:#µ¹¼ÆÊ±Îª0Ê±¹Ø±ÕÁ´½Ó£¬µ«·Â·ğ²¢Ã»ÓĞÊ²Ã´ÓÃ¡£baiduËµÕâ¸ö¾ÍÊÇÓĞÎÊÌâ£¬¾ßÌå½â¾ö²»Ã÷£¬·´Õı°´ÕÕ½Ì³Ì
+            sock.shutdown(2)#Ö»ÓÃÌí¼ÓÕâÒ»ĞĞ£¬µ«Ò²Ã»ÓÃ
             sock.close()
             break
         else:
@@ -141,8 +141,8 @@ def run_proc(message,port):
             except:
                 pass
 
-if __name__=='__main__':
-    po=Pool(3)
+if __name__=='__main__':#Ö÷½ø³Ì
+    po=Pool(3)#½ø³Ì³Ø£¬Ò»´Î½»Ò×ÈıÖÖÉÌÆ·
     po.apply_async(run_proc,(message[0],5550))
     po.apply_async(run_proc,(message[1],6000))
     po.apply_async(run_proc,(message[2],8080))

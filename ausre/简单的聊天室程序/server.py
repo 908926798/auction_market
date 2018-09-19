@@ -15,15 +15,18 @@ print('Server', socket.gethostbyname('localhost'), 'listening ...')
 mydict = dict()
 mylist = list()
 
-
-
-def tellOthers(exceptNum, whatToSay):
-    for c in mylist:
-        if c.fileno() != exceptNum:
+def chat():
+    while True:
+        message=raw_input()
+        for c in mylist:
             try:
-                c.send(whatToSay.encode())
+                c.send(message.encode())
             except:
                 pass
+
+chatthread = threading.Thread(target=chat, args=())
+chatthread.setDaemon(True)
+chatthread.start()
 
 
 def subThreadIn(myconnection, connNumber):
@@ -31,14 +34,11 @@ def subThreadIn(myconnection, connNumber):
     mydict[myconnection.fileno()] = nickname
     mylist.append(myconnection)
     print('connection', connNumber, ' has nickname :', nickname)
-    tellOthers(connNumber, "[[system hints：" + mydict[connNumber] + " enters chatroom]]")
     while True:
         try:
             recvedMsg = myconnection.recv(1024).decode()
             if recvedMsg:
                 print(mydict[connNumber], ':', recvedMsg)
-                tellOthers(connNumber, mydict[connNumber] + ' :' + recvedMsg)
-
         #except (OSError, ConnectionResetError):
         except:
             try:
@@ -46,7 +46,6 @@ def subThreadIn(myconnection, connNumber):
             except:
                 pass
             print(mydict[connNumber], 'exit, ', len(mylist), ' person left')
-            tellOthers(connNumber, '[[system hints：' + mydict[connNumber] + ' leaves]]')
             myconnection.close()
             return
 
