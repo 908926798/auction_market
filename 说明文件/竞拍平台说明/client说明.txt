@@ -1,0 +1,33 @@
+mport socket
+import time
+import threading
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+sock.connect(('localhost', 5550))
+sock.send(b'1')
+print(sock.recv(1024).decode())
+nickName = raw_input('input your nickname: ')#输入用户名
+sock.send(nickName.encode())
+
+def sendThreadFunc():
+    while True:
+        try:#因为做不到从文字中准确分出什么是竞价，什么是闲聊，所以规定只能发数字
+            #myword = raw_input()
+            #sock.send(myword.encode())
+            while True:
+                myword = None
+                try:
+                    myword = int(input("your bid:"))
+                except:
+                    print "invalid input:please input a num"
+                    pass
+                if type(myword) == int:
+                    sock.send(str(myword).encode())
+                    break
+        except:
+            print('Server failed!')
+            break
