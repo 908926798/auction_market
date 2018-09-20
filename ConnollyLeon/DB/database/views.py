@@ -9,6 +9,7 @@ from django.core.exceptions import *
 from django.http import *
 from .Serializer import *
 import json
+import memcache
 
 
 # Create your views here.
@@ -102,6 +103,7 @@ def register(request):
 
 @csrf_exempt
 def goods(request):
+    mc = memcache.Client(['192.168.43.23:11211'], debug=True)
     if request.method == 'POST':
         username = request.POST.get("username")
         itemname = request.POST.get('itemname')
@@ -116,7 +118,9 @@ def goods(request):
         try:
             print('testing')
             user = User.objects.get(username=username)
-            Goods.objects.create(seller_name=user, goods_name=itemname, minimum_price=price, detail=detail)
+            print('hello')
+            Goods.objects.create(seller_name=user, goods_name=itemname, minimum_price=price, detail=detail,
+                                 lastprice=price)
             print('Am I here?')
             result['status'] = 1
             result = json.dumps(result)
@@ -128,17 +132,23 @@ def goods(request):
 
     elif request.method == 'GET':
         status = request.GET.get('status')
-        if (status == '1'):
+        if status == '1':
             goods = Goods.objects.filter(status='review')
             serializer = GoodsReviewSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
-        elif (status == '2'):
+        elif status == '2':
             goods = Goods.objects.filter(status='in')
             serializer = GoodsInSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
-        elif (status == '3'):
+        elif status == '3':
             goods = Goods.objects.filter(status='end')
-            serializer = GoodsEndSerializer(goods, many=True)
+            print(goods)
+            a = mc.get('list')
+            serializer = GoodsEndSerializer(a, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        elif status == '4':
+            goods = Goods.objects.filter(status='ready')
+            serializer = GoodsSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
         result = {}
         result['status'] = 0
@@ -202,7 +212,6 @@ def money(request):
         return HttpResponse(result, content_type='application/json;charset=utf-8')
 
     elif request.method == 'GET':
-        print("GET 你个大球球")
         username = request.GET.get("username")
         user = User.objects.get(username=username)
         print(user.assets)
@@ -219,7 +228,7 @@ def judgement(request):
         print(result)
         if result == '1':
             print('hello')
-            goods.status = 'in'
+            goods.status = 'ready'
             goods.save()
             Result = {}
             Result['status'] = 1
