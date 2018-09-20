@@ -7,6 +7,7 @@ import mysql.connector
 import multiprocessing
 from multiprocessing import Pool
 import os
+import signal
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -14,7 +15,7 @@ sys.setdefaultencoding('utf8')
 
 
 config = {
-    'host': '192.168.43.23',
+    'host': '192.168.1.26',
     'user': 'root',
     'password': 'yueyue',
     'port': 3306,
@@ -68,7 +69,7 @@ def run_proc(message,port):
         tellOthers(connNumber, '\n'+"[[system hints：" + mydict[connNumber] + " enters chatroom]]")
         if ncount[1]==-1:
             tellOne(connNumber,'\n'+"[[system hints:the trade is closed]]")
-            sys.exit(0)
+            return
         else:
             tellOne(connNumber,'\n'+"[[system hints:Commodities being traded: "+message+"]]") #tell the freshman the information of commodity
         while True:
@@ -102,6 +103,8 @@ def run_proc(message,port):
 
     def codedown(count):
         while True:
+            if ncount[1]==-1:
+                return
             if ncount[1]!=-1 and ncount[1]!=9999:
                 while (count <= ncount[1]):
                     time.sleep(1)
@@ -124,7 +127,8 @@ def run_proc(message,port):
                         try:
                             c.send(('\n'+'[[system hints:'+whatToSay[0]+str(whatToSay[1])+']]').encode())
                         except:
-                            pass
+                            return
+
                 else:
                     if whatToSay[1]%10!=0:
                         numb=0
@@ -138,29 +142,30 @@ def run_proc(message,port):
             if ncount[1]==-1:
                 telltoALL('\n' + "[[system hints: " + update_price[0] + " finnaly get the commodity " + "by " + str(update_price[1]) + " yuan" + "]]")
                 telltoALL("[[system hints:the trade is closed]]")
-                f = open("trade", "a+")
-                f.write(message + " " + update_price[0] + " " + str(update_price[1]) + "\n")
-                f.close()
+                #f = open("trade", "a+")
+                #f.write(message + " " + update_price[0] + " " + str(update_price[1]) + "\n")
+                #f.close()
                 cursor.execute('UPDATE database_goods SET lastbid_username = %s WHERE goods_name = %s',(update_price[0],message))
                 cursor.execute('UPDATE database_goods SET lastprice = %s WHERE goods_name = %s',(update_price[1],message))
                 cursor.execute('UPDATE database_goods SET lastbid_time = now() where goods_name = %s',(message,))
                 cursor.execute('UPDATE database_goods SET status = "end" where goods_name = %s', (message,))
                 cnn.commit()
+                print "11111111"
+                sys.exit()
+                print "oooooooo"
                 return
 
     recordthread=threading.Thread(target=record, args=())
     recordthread.setDaemon(True)
     recordthread.start()
 
-    while True:
+    while ncount[1]>=0:
         if ncount[1]==-1:
-            sock.shutdown(2)
-            sock.close()
-            try:
-                sys.exit(0)
-            except:
-                print "closing process failed"
             break
+        #    flag-=1
+        #    sock.shutdown(2)
+        #    sock.close()
+        #    break
         else:
             connection, addr = sock.accept()
             try:
@@ -178,13 +183,20 @@ def run_proc(message,port):
 
 if __name__=='__main__':
     #cnn = mysql.connector.connect(**config)
-    cursor.execute('select goods_name from database_goods WHERE status="in"')
-    message = cursor.fetchall()
-    print message
-    length=len(message)
-    po=Pool()
-    for i in range (0,length):
-        po.apply_async(run_proc, (message[i][0], 5550+i*10))
-    po.close()
-    po.join()
-    print "all is over"
+    while True:
+        try:
+            cursor.execute('select goods_name from database_goods WHERE status="ready"')
+            message = cursor.fetchall()
+            if message!=[]:
+                print message
+                length=len(message)
+                po=Pool(length)
+                for i in range (length):
+                    po.apply_async(run_proc, (message[i][0], 5550+i*10))
+                    cursor.execute('UPDATE database_goods SET status = "in" where goods_name = %s', (message[i][0],))
+                    cnn.commit()
+                po.close()
+                po.join()
+                print "all is over"
+        except:
+            pass

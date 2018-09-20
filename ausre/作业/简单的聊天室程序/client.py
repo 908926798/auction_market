@@ -24,6 +24,8 @@ def sendThreadFunc():
             print('Server failed!')
             break
 
+
+
 def recvThreadFunc():
     while True:
         try:
@@ -40,6 +42,8 @@ def recvThreadFunc():
         except:
             print('Server failed!')
             break
+
+
 
 th1 = threading.Thread(target=sendThreadFunc)
 th2 = threading.Thread(target=recvThreadFunc)
