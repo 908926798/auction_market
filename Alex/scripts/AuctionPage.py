@@ -19,6 +19,16 @@ class AuctionPage(QDialog):
         self.btn_bid.clicked.connect(self.bid)
 
     def bid(self):
+        if not self.lie.text().isdigit():
+            QMessageBox.information(self, "错误", "金额必须为数字", QMessageBox.Yes)
+            return
+        if int(self.lie.text()) < self.mc.curMoney:
+            QMessageBox.information(self, "错误", "出价必须大于现价", QMessageBox.Yes)
+            return
+        if int(self.lie.text()) > self.mc.money:
+            QMessageBox.information(self, "错误", "你没有这么多钱", QMessageBox.Yes)
+            return
+
         self.bwThread.send(self.lie.text())
         self.lie.setText('')
 
@@ -34,6 +44,7 @@ class AuctionPage(QDialog):
         self.mc.nextPage = None
         self.lbl_username.setText(self.mc.username)
         self.lbl_money.setText(str(self.mc.money) +' 元')
+        self.lbl_itemName.setText(str(self.mc.auctionItem['goods_name']))
 
         self.bwThread = RequireThread(self.mc, self)
         self.bwThread.start()
@@ -57,8 +68,10 @@ class RequireThread(QThread):
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection = sock
+        print(self.mc.auctionIP)
+        print(5000 + self.mc.auctionItem['G_number'] % 60000)
 
-        sock.connect(('localhost', 5550))
+        sock.connect((self.mc.auctionIP, 5000 + self.mc.auctionItem['G_number'] %60000))
         self.send(self.mc.username)
 
         mythread = threading.Thread(target=self.subThreadIn, args=())
@@ -90,4 +103,9 @@ class RequireThread(QThread):
         if msg[0] == 'p':
             u,p = m.split(':')
             self.cp.txb.append('新出价人: ' + u + '  价格: ' + p +'元' )
+            self.mc.curMoney = int(p)
+            self.cp.txb.moveCursor(QTextCursor.End)
+            self.cp.lbl_curPrice.setText(p+' 元')
+        if msg[0] == 'e':
+            self.cp.txb.append('当前竞拍已结束' )
             self.cp.txb.moveCursor(QTextCursor.End)

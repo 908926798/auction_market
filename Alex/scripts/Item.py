@@ -5,6 +5,7 @@ import socket
 import requests
 import json
 import ChatPage
+import AuctionPage
 import sys
 
 class Item1(QWidget):
@@ -35,7 +36,7 @@ class Item1(QWidget):
 
         info = {'fromname': self.mc.username,
                 'toname': self.itemInfo['seller_name'],
-                'fromip': ip}
+                'fromip': ip+':'+str(self.mc.port)}
 
         # try:
         res = requests.post(url, data=info)
@@ -49,13 +50,12 @@ class Item1(QWidget):
             try:
                 ChatPage.ChatPage(self.mc).run()
                 QMessageBox.information(self, "结束", "聊天已结束!", QMessageBox.Yes)
+                self.mc.port += 1
             except:
                 return
 
         else:
             QMessageBox.information(self, "错误", "无法与该卖家通信!", QMessageBox.Yes)
-        # except:
-        #     QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
 
     def agree(self):
         self.judgeItem(1)
@@ -72,7 +72,6 @@ class Item1(QWidget):
             # print(res.text)
             result = json.loads(res.text)
             if result['status']:
-                print(2222)
                 self.mc.mainPage.getState()
         except:
             QMessageBox.information(self, "错误", "通讯失败!", QMessageBox.Yes)
@@ -88,7 +87,12 @@ class Item2(QWidget):
         self.itemInfo = item
         self.lbl_itemName.setText(self.itemInfo['goods_name'])
         self.lbl_lastBidder.setText(self.itemInfo['lastbid_username'])
+        if self.itemInfo['lastbid_username']:
+            self.lbl_lastBidder.setText(self.itemInfo['lastbid_username'])
+        else:
+            self.lbl_lastBidder.setText('暂无')
         self.lbl_seller.setText(self.itemInfo['seller_name'])
+
         self.lbl_curPrice.setText(str(self.itemInfo['lastprice']))
         self.btn_joinAction.clicked.connect(self.joinAuction)
         self.btn_itemDetail.clicked.connect(self.itemDetail)
@@ -97,9 +101,14 @@ class Item2(QWidget):
         ItemDetail(self.mc,self.itemInfo).run()
 
     def joinAuction(self):
-        self.mc.acutionItem = self.itemInfo['itemName']
-        self.mc.nextPage = 'auctionPage'
-        self.mc.mainPage.close()
+        if not '拍卖者' in self.mc.roles:
+            QMessageBox.information(self, "错误", "您不是拍卖者，不能参与竞拍！", QMessageBox.Yes)
+            return
+        self.mc.curMoney = self.itemInfo['lastprice']
+        self.mc.auctionItem = self.itemInfo
+        AuctionPage.AuctionPage(self.mc).run()
+        self.mc.mainPage.getState()
+        self.mc.mainPage.getMoney()
 
 class Item3(QWidget):
     def __init__(self, mc,item,parent=None):
@@ -143,10 +152,19 @@ class ItemDetail(QDialog):
         url += 'G_number=' + str(self.itemInfo['G_number'])
         try:
             res = requests.get(url)
-            result = json.loads(res.text)
+            result = json.loads(res.text)[0]
             print(result)
         except:
             pass
 
+        self.ID.setText(str(result['G_number']))
+        self.itemName.setText(str(result['goods_name']))
+        self.seller.setText(str(result['seller_name']))
+        self.lastBidder.setText(str(result['lastbid_username']))
+        self.lastTime.setText(str(result['lastbid_time']))
+        self.lastPrice.setText(str(result['lastprice']))
+        self.minPrice.setText(str(result['minimum_price']))
+        self.state.setText(str(result['status']))
+        self.detail.setText(str(result['detail']))
 
         self.exec_()

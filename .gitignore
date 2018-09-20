@@ -29,3 +29,11 @@ ConnollyLeon/DB/.idea/misc.xml
 *.iml
 *.xml
 .idea/workspace.xml
+<<<<<<< HEAD
+.idea/misc.xml
+.idea/misc.xml
+.idea/workspace.xml
+=======
+*.pyc
+*.pyc
+>>>>>>> fc636911f73c30b6d543e7a52e803316a065feaf
