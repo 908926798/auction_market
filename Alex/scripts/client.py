@@ -8,7 +8,8 @@ import AuctionPage
 
 class MainController():
     def __init__(self):
-        self.url = 'http://192.168.1.4:8000'
+        self.url = 'http://192.168.43.17:8000'
+        self.auctionIP = '192.168.43.56'
         self.username = '1'
         self.roles = ['商品管理员','拍卖者']
         self.money = 20
@@ -18,12 +19,14 @@ class MainController():
         self.searchState = 1
         self.items = []
         self.mainPage = None
-        self.auctionItem = 'df'
+        self.auctionItem = {}
         self.chatOther = '1'
         self.chatState = 's'
         self.otherIP = None
         self.chats = {}
         self.port = 5550
+        self.curMoney = 0
+        self.auctionPort = 0
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)
@@ -35,7 +38,7 @@ if __name__ == "__main__":
     mc.pages['mainPage'] = MainPage.MainPage(mc)
     mc.pages['auctionPage'] = AuctionPage.AuctionPage(mc)
 
-    mc.nextPage = 'auctionPage'
+    mc.nextPage = 'mainPage'
 
     while(mc.nextPage):
         mc.pages[mc.nextPage].run()
