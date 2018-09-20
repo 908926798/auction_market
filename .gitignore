@@ -29,3 +29,5 @@ ConnollyLeon/DB/.idea/misc.xml
 *.iml
 *.xml
 .idea/workspace.xml
+*.pyc
+*.pyc

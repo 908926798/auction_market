@@ -24,24 +24,24 @@ class LoginPage(QDialog):
         url += 'login_name_email=' + self.lie_username.text()
         url += '&login_password=' + self.lie_password.text()
 
-        # try:
-        res = requests.get(url)
-        result = json.loads(res.text)
-        print(result)
-        if result['status']:
-            self.mc.username = self.lie_username.text()
-            self.mc.money = result['money']
-            self.mc.roles = []
-            if result['GM'] == '1':
-                self.mc.roles.append('商品管理员')
-            if result['U'] == '1':
-                self.mc.roles.append('拍卖者')
-            self.mc.nextPage = 'mainPage'
-            self.close()
-        else:
-            QMessageBox.information(self, "错误", "用户名或密码错误!", QMessageBox.Yes)
-        # except:
-        #     QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
+        try:
+            res = requests.get(url)
+            result = json.loads(res.text)
+            print(result)
+            if result['status']:
+                self.mc.username = self.lie_username.text()
+                self.mc.money = result['money']
+                self.mc.roles = []
+                if result['GM'] == '1':
+                    self.mc.roles.append('商品管理员')
+                if result['U'] == '1':
+                    self.mc.roles.append('拍卖者')
+                self.mc.nextPage = 'mainPage'
+                self.close()
+            else:
+                QMessageBox.information(self, "错误", "用户名或密码错误!", QMessageBox.Yes)
+        except:
+            QMessageBox.information(self, "错误", "与服务器通讯失败!", QMessageBox.Yes)
 
         self.lie_username.setText('')
         self.lie_password.setText('')

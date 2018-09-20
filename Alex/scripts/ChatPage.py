@@ -24,7 +24,6 @@ class ChatPage(QDialog):
         self.connection = None
         self.socket = None
         self.state = 0
-        self.port = 5550
 
     def listen(self):
         try:
@@ -90,7 +89,6 @@ class ListenThread(QThread):
         self.socket = sock
         sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         sock.bind((self.mc.otherIP, self.mc.port))
-        self.mc.port += 1
         sock.listen(5)
 
         # shou
@@ -150,9 +148,8 @@ class RequireThread(QThread):
         self.socket = sock
         sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 
-        # print(self.mc.otherIP)
-        sock.connect((self.mc.otherIP, 5550))
-        # print(sock.recv(1024).decode())
+        ip,port = self.mc.otherIP.split(':')
+        sock.connect((ip, int(port)))
 
         self.connection = sock
 
