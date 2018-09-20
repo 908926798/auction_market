@@ -22,7 +22,7 @@ class Goods(models.Model):
     status = models.CharField(max_length=6, choices=choice, default='review')
     lastbid_username = models.CharField(max_length=20, null=True)
     lastbid_time = models.DateTimeField(null=True)
-    lastprice = models.IntegerField(null=True)
+    lastprice = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.goods_name
