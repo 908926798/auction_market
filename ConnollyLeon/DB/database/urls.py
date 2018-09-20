@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from apscheduler.scheduler import  Scheduler
 from . import views
+from .tests import *
 
 urlpatterns = [
     url(r'^login/$', views.login, name='login'),
@@ -26,3 +28,10 @@ urlpatterns = [
     url(r'^judgement/$',views.judgement,name='judgement'),
     url(r'^detail/$',views.detail,name='detail')
 ]
+
+sched = Scheduler()
+@sched.interval_schedule(seconds=10)
+def my_task():
+    refresh_memcache()
+
+sched.start()
