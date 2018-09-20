@@ -94,6 +94,7 @@ class MainPage(QDialog):
             self.mc.money += int(self.lie_addMoney.text())
         else:
             QMessageBox.information(self, "错误", "请输入正确金额！\n（目前只支持整数金额）",QMessageBox.Yes)
+            return
 
         url = self.mc.url + '/money/'
         info = {'username':self.mc.username,
@@ -110,7 +111,17 @@ class MainPage(QDialog):
                 self.lbl_money.setText(str(self.mc.money) + ' 元')
         except:
             self.lie_addMoney.setText('')
-            QMessageBox.information(self, "错误", "冲的钱太多啦!", QMessageBox.Yes)
+            QMessageBox.information(self, "错误", "无法给你充值!", QMessageBox.Yes)
+
+    def getMoney(self):
+        url = self.mc.url + '/money?'
+        url += 'username=' + self.mc.username
+        try:
+            res = requests.get(url)
+            self.mc.money = int(res.text)
+            self.lbl_money.setText(str(self.mc.money) + ' 元')
+        except:
+            print('error')
 
     def startChat(self):
         if not self.lwg_other.selectedItems():
@@ -124,6 +135,7 @@ class MainPage(QDialog):
         self.mc.chatState = 's'
 
         self.mc.otherIP = self.mc.chats[self.lwg_other.selectedItems()[0].text()]
+
         ChatPage.ChatPage(self.mc).run()
         QMessageBox.information(self, "结束", "聊天已结束!", QMessageBox.Yes)
 
@@ -135,6 +147,10 @@ class MainPage(QDialog):
             sys.exit()
 
     def sell(self):
+        if not '拍卖者' in self.mc.roles:
+            QMessageBox.information(self, "错误", "您不是拍卖者，不能上架商品！", QMessageBox.Yes)
+            return
+
         SellPage.SellPage(self.mc).run()
 
     def getChat(self):
