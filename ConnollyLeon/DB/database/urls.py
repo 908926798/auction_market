@@ -15,23 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from apscheduler.scheduler import  Scheduler
+from apscheduler.scheduler import Scheduler
 from . import views
 from .tests import *
 
 urlpatterns = [
     url(r'^login/$', views.login, name='login'),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^goods/$', views.goods,name='goods'),
-    url(r'^chat/$',views.chat,name='chat'),
-    url(r'^money/$',views.money,name='money'),
-    url(r'^judgement/$',views.judgement,name='judgement'),
-    url(r'^detail/$',views.detail,name='detail')
+    url(r'^user/$', views.postuser, name='user'),
+    url(r'^goods/status/(?P<status>[0-9]+)/$', views.goodsstatus, name='goodsstatus'),
+    url(r'^chat/$', views.chat, name='chat'),
+    url(r'^user/(?P<pk>[\w]+)/$', views.user, name='money'),
+    url(r'^goods/(?P<pk>[0-9]+)/$', views.goods, name='goods'),
+    url(r'^goods/$', views.postgoods, name='postgoods')
 ]
 
-sched = Scheduler()
-@sched.interval_schedule(seconds=10)
-def my_task():
-    refresh_memcache()
+# sched = Scheduler()
 
-sched.start()
+
+# @sched.interval_schedule(seconds=10)
+# def my_task():
+#    refresh_memcache()
+
+
+# sched.start()

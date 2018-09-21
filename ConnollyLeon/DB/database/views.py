@@ -8,6 +8,7 @@ from hashlib import md5
 from django.core.exceptions import *
 from django.http import *
 from .Serializer import *
+from rest_framework.decorators import api_view
 import json
 import memcache
 
@@ -64,36 +65,33 @@ def login(request):
         return HttpResponse(result, content_type='application/json;charset=utf-8')
 
 
-def register(request):
-    if request.method == 'GET':
-        result = {}
-        username = request.GET.get('username')
-        password = request.GET.get('password')
-        gm = request.GET.get('gm')
-        u = request.GET.get('u')
-        print(username)
-        print(password)
-        print(gm)
-        print(u)
+@csrf_exempt
+def user(request,pk):
 
+    if request.method =='PUT':
         try:
-            print('trying to get objects')
-            User.objects.get(username=username)
-            print('obeject got')
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            result = {}
             result['status'] = 0
             result = json.dumps(result)
             return HttpResponse(result, content_type='application/json;charset=utf-8')
-        except ObjectDoesNotExist as e:
-            m2 = md5()
-            # if(password):
 
-            m2.update(password.encode('utf8'))
-            password = m2.hexdigest()
-            registAdd = User.objects.create(username=username, password=password, isAdministrator=gm, isGeneralUser=u)
-            # registAdd.save()
-            result['status'] = 1
-            result = json.dumps(result)
-            return HttpResponse(result, content_type='application/json;charset=utf-8')
+        put = QueryDict(request.body)
+        assets = put.get('assets')
+        print(assets)
+        user.assets=assets
+        user.save()
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method=='GET':
+        try:
+            user = User.objects.get(username=pk)
+        except User.DoesNotExist:
+            print('HTTP404')
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data, safe=False)
     else:
         result = {}
         result['status'] = 0
@@ -102,8 +100,8 @@ def register(request):
 
 
 @csrf_exempt
-def goods(request):
-    mc = memcache.Client(['192.168.43.23:11211'], debug=True)
+def goodsstatus(request, status):
+    # mc = memcache.Client(['192.168.43.23:11211'], debug=True)
     if request.method == 'POST':
         username = request.POST.get("username")
         itemname = request.POST.get('itemname')
@@ -131,7 +129,7 @@ def goods(request):
             return HttpResponse(result, content_type='application/json;charset=utf-8')
 
     elif request.method == 'GET':
-        status = request.GET.get('status')
+        # status = request.GET.get('status')
         if status == '1':
             goods = Goods.objects.filter(status='review')
             serializer = GoodsReviewSerializer(goods, many=True)
@@ -143,8 +141,8 @@ def goods(request):
         elif status == '3':
             goods = Goods.objects.filter(status='end')
             print(goods)
-            a = mc.get('list')
-            serializer = GoodsEndSerializer(a, many=True)
+            # a = mc.get('list')
+            serializer = GoodsEndSerializer(goods, many=True)
             return JsonResponse(serializer.data, safe=False)
         elif status == '4':
             goods = Goods.objects.filter(status='ready')
@@ -193,12 +191,31 @@ def chat(request):
         serializer = PrivateChatSerializer(chats, many=True)
         return JsonResponse(serializer.data, safe=False)
 
+    else:
+        delete = QueryDict(request.body)
+        fromname = delete.get('fromname')
+        toname = delete.get('toname')
+        try:
+            fromuser = User.objects.get(username=fromname)
+            touser = User.objects.get(username=toname)
+            try:
+                chat = PrivateChat.objects.get(sourceName=fromuser, targetName=touser)
+                chat.delete()
+            except ObjectDoesNotExist as e:
+                pass
+            chats = PrivateChat.objects.filter(targetName=touser)
+            serializer = PrivateChatSerializer(chats, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        except ObjectDoesNotExist as e:
+            pass
+
 
 @csrf_exempt
+@api_view(['GET', 'PUT'])
 def money(request):
-    if request.method == 'POST':
-        addMoney = request.POST.get("money")
-        username = request.POST.get("username")
+    if request.method == 'PUT':
+        addMoney = request.PUT.get("money")
+        username = request.PUT.get("username")
         user = User.objects.get(username=username)
         user.assets += int(addMoney)
         user.save()
@@ -218,45 +235,88 @@ def money(request):
         return HttpResponse(user.assets)
 
 
-@csrf_exempt
-def judgement(request):
-    if request.method == 'POST':
-        G_number = request.POST.get("G_number")
-        result = request.POST.get("result")
-        goods = Goods.objects.get(G_number=G_number)
-        print(G_number)
-        print(result)
-        if result == '1':
-            print('hello')
-            goods.status = 'ready'
-            goods.save()
-            Result = {}
-            Result['status'] = 1
-            Result = json.dumps(Result)
-            return HttpResponse(Result, content_type='application/json;charset=utf-8')
-        elif result == '0':
-            print('nono')
-            goods.delete()
-            Result = {}
-            Result['status'] = 1
-            Result = json.dumps(Result)
-            return HttpResponse(Result, content_type='application/json;charset=utf-8')
-        else:
-            Result = {}
-            Result['status'] = 0
-            Result = json.dumps(Result)
-            return HttpResponse(Result, content_type='application/json;charset=utf-8')
-    else:
-        Result = {}
-        Result['status'] = 0
-        Result = json.dumps(Result)
-        return HttpResponse(Result, content_type='application/json;charset=utf-8')
-
 
 @csrf_exempt
-def detail(request):
+@api_view(['GET', 'PUT', 'DELETE'])
+def goods(request, pk):
+    try:
+        goods = Goods.objects.get(G_number=pk)
+    except Goods.DoesNotExist:
+        print('HTTP404')
+
     if request.method == 'GET':
-        G_number = request.GET.get('G_number')
-        goods = Goods.objects.filter(G_number=G_number)
-        serializer = GoodsSerializer(goods, many=True)
+        serializer = GoodsSerializer(goods)
         return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'PUT':
+        goods.status = 'ready'
+        goods.save()
+        serializer = GoodsSerializer(goods)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'DELETE':
+        goods.delete()
+        result = {}
+        result['status'] = 1
+        result = json.dumps(result)
+        return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+
+@csrf_exempt
+def postgoods(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        itemname = request.POST.get('itemname')
+        price = request.POST.get('price')
+        detail = request.POST.get('detail')
+
+        print(username)
+        print(itemname)
+        print(price)
+        print(detail)
+        result = {}
+        try:
+            print('testing')
+            user = User.objects.get(username=username)
+            print('hello')
+            Goods.objects.create(seller_name=user, goods_name=itemname, minimum_price=price, detail=detail,
+                                 lastprice=price)
+            print('Am I here?')
+            result['status'] = 1
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+        except ObjectDoesNotExist as e:
+            result['status'] = 0
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+
+
+@csrf_exempt
+def postuser(request):
+    if request.method == 'POST':
+        result = {}
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        gm = request.POST.get('gm')
+        u = request.POST.get('u')
+        print(username)
+        print(password)
+        print(gm)
+        print(u)
+
+        try:
+            print('trying to get objects')
+            User.objects.get(username=username)
+            print('obeject got')
+            result['status'] = 0
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')
+        except ObjectDoesNotExist as e:
+            m2 = md5()
+            # if(password):
+
+            m2.update(password.encode('utf8'))
+            password = m2.hexdigest()
+            registAdd = User.objects.create(username=username, password=password, isAdministrator=gm, isGeneralUser=u)
+            # registAdd.save()
+            result['status'] = 1
+            result = json.dumps(result)
+            return HttpResponse(result, content_type='application/json;charset=utf-8')

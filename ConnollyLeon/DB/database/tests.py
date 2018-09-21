@@ -5,11 +5,11 @@ from django.test import TestCase
 from .models import *
 import memcache
 
-mc = memcache.Client(['192.168.43.23:11211'], debug=True)
+mc = memcache.Client(['localhost:11211'], debug=True)
 mc.set('list',[])
 
 def refresh_memcache():
-    mc = memcache.Client(['192.168.43.23:11211'], debug=True)
+    mc = memcache.Client(['localhost:11211'], debug=True)
     goods = Goods.objects.filter(status='end')
 
     for i in goods:
